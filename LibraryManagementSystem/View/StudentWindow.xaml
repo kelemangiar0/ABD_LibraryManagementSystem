@@ -34,7 +34,10 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
+                    
                 </Grid.RowDefinitions>
 
 
@@ -42,7 +45,7 @@
 
 
 
-                <Grid>
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="50"/>
@@ -67,18 +70,71 @@
                     <Image Margin="5,0,0,0" Source="./../Images/Icon.png" HorizontalAlignment="Left" Height="50"/>
                     <Label Margin="60,0,0,0" Content="Student Florin" Grid.Column="0" Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="#FF4D3916"/>
                 </Grid>
-                
-                
-              
+
+
+                <!--
+                <Button x:Name="b1" Click="butonClose_Click" Style="{StaticResource menuButton}" Content="Buton">
+                    <Button.Tag>
+                        <SolidColorBrush Color="Red" />
+                    </Button.Tag>
+                </Button>
+                -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Grid.Column="2"
+                                 Content="Button"
+VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 IsChecked="True">
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+             Grid.Column="3"
+             Content="Button"
+             HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    <RadioButton Style="{StaticResource menuButton}"
+             Grid.Column="4"
+             Content="Button"
+             HorizontalAlignment="Center">
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+             Grid.Column="5"
+             Content="Button"
+             HorizontalAlignment="Center">
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+             Grid.Column="6"
+             Content="Button"
+             HorizontalAlignment="Center">
+                    </RadioButton>
+                    <RadioButton Style="{StaticResource menuButton}"
+Grid.Column="7"
+Content="Button"
+HorizontalAlignment="Center">
+                    </RadioButton>
+                </Grid>
+
+                <StackPanel Grid.Row="3" Margin="50,0,50,50">
+                    <Image Source="./../Images/Background.png"></Image>
+                </StackPanel>
 
 
 
-
-
-
-
-
-            </Grid>
+                </Grid>
         </Border>
     </Border>
 </Window>

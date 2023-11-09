@@ -22,17 +22,17 @@ namespace LibraryManagementSystem.View
     /// </summary>
     public partial class LoginRegisterView : UserControl
     {
-        private LoginRegisterWindowViewModel viewModel;
+        //private LoginRegisterWindowViewModel viewModel;
         public LoginRegisterView()
         {
             InitializeComponent();
-            viewModel = new LoginRegisterWindowViewModel();
+            //viewModel = new LoginRegisterWindowViewModel();
             //DataContext = viewModel;
         }
 
         private void butonLoginMain_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.ShowLoginViewCommand.Execute(null);
+            //viewModel.ShowLoginViewCommand.Execute(null);
 
             //StudentWindow studentWindow = new StudentWindow();
             //studentWindow.Show();
