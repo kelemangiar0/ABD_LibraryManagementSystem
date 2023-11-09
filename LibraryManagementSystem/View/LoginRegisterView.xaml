@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="LibraryManagementSystem.View.LoginRegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LibraryManagementSystem.View"
+             xmlns:viewModel="clr-namespace:LibraryManagementSystem.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="645" d:DesignWidth="600">
+
+    <UserControl.DataContext>
+        <viewModel:LoginRegisterWindowViewModel/>
+    </UserControl.DataContext>
+
+    <StackPanel Width="600" Margin="0,25,0,0">
+
+        <Image Source="./../Images/Icon.png" Height="112"/>
+
+        <TextBlock Text="The Uncensored Library" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FF4D3916"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding ShowLoginViewCommand}" Click="butonLoginMain_Click" Margin="0,175,0,0" x:Name="butonLoginMain" Style="{StaticResource bigButton}" Content="Login" Grid.Column="0">
+                <Button.Tag>
+                    <SolidColorBrush Color="Beige" />
+                </Button.Tag>
+            </Button>
+
+            <Button Command="{Binding ShowRegisterViewCommand}" Margin="0,175,0,0" x:Name="butonRegisterMain" Style="{StaticResource bigButton}" Content="Register" Grid.Column="1">
+                <Button.Tag>
+                    <SolidColorBrush Color="Beige" />
+                </Button.Tag>
+            </Button>
+
+
+
+        </Grid>
+
+    </StackPanel>
+</UserControl>
