@@ -16,24 +16,13 @@ using System.Windows.Shapes;
 namespace LibraryManagementSystem.View
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for AccountOverviewView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class AccountOverviewView : UserControl
     {
-        public LoginView()
+        public AccountOverviewView()
         {
             InitializeComponent();
-        }
-
-        private void butonLogin_Click(object sender, RoutedEventArgs e)
-        {
-            StudentWindow studentWindow = new StudentWindow();
-            studentWindow.Show();
-            
-
-            //sa inchida fereastra de login/register
-            var myWindow = Window.GetWindow(this);
-            myWindow.Close();
         }
     }
 }

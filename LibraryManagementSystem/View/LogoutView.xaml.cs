@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,22 +17,20 @@ using System.Windows.Shapes;
 namespace LibraryManagementSystem.View
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for LogoutView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class LogoutView : UserControl
     {
-        public LoginView()
+        public LogoutView()
         {
             InitializeComponent();
         }
 
-        private void butonLogin_Click(object sender, RoutedEventArgs e)
+        private void butonLoginMain_Click(object sender, RoutedEventArgs e)
         {
-            StudentWindow studentWindow = new StudentWindow();
-            studentWindow.Show();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             
-
-            //sa inchida fereastra de login/register
             var myWindow = Window.GetWindow(this);
             myWindow.Close();
         }
