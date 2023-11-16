@@ -28,8 +28,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBox HorizontalAlignment="Center" Grid.Column="0" x:Name="registerUsername" Width="200" Height="30" Style="{StaticResource initialTextbox}"/>
-            <PasswordBox  HorizontalAlignment="Center" Grid.Column="1" x:Name="registerEmail" Width="200" Height="30" Style="{StaticResource initialPasswordbox}"/>
+            <TextBox HorizontalAlignment="Center" FontSize="20" Grid.Column="0" x:Name="registerUsername" Width="200" Height="30" Style="{StaticResource initialTextbox}"/>
+            <TextBox  HorizontalAlignment="Center" FontSize="20" Grid.Column="1" x:Name="registerEmail" Width="200" Height="30" Style="{StaticResource initialTextbox}"/>
         </Grid>
 
         <Grid>
@@ -48,12 +48,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBox HorizontalAlignment="Center" Grid.Column="0" x:Name="password" Width="200" Height="30" Style="{StaticResource initialTextbox}"/>
-            <PasswordBox  HorizontalAlignment="Center" Grid.Column="1" x:Name="passwordConfirm" Width="200" Height="30" Style="{StaticResource initialPasswordbox}"/>
+            <PasswordBox HorizontalAlignment="Center" FontSize="20" Grid.Column="0" x:Name="password" Width="200" Height="30" Style="{StaticResource initialPasswordbox}"/>
+            <PasswordBox  HorizontalAlignment="Center" FontSize="20" Grid.Column="1" x:Name="passwordConfirm" Width="200" Height="30" Style="{StaticResource initialPasswordbox}"/>
         </Grid>
 
 
-        <Button x:Name="butonRegister" Style="{StaticResource bigButton}" Content="Register" Grid.Column="2" Margin="0,70,0,0">
+        <Button x:Name="butonRegister" Style="{StaticResource bigButton}" Content="Register" Grid.Column="2" Margin="0,70,0,0" Click="butonRegister_Click">
             <Button.Tag>
                 <SolidColorBrush Color="Beige" />
             </Button.Tag>
