@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+	<Compile Include="ViewModel\AccountOverviewViewModel.cs" />
+	<Compile Include="ViewModel\AvailableBooksViewModel.cs" />
     <Compile Include="Account.cs" />
     <Compile Include="AESCrypt.cs" />
     <Compile Include="ViewModel\LoginRegisterViewModel.cs" />
