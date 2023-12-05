@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="UncensoredLibrary" Class="UncensoredLibraryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=UncensoredLibrary;Integrated Security=True" SettingsObjectName="LibraryManagementSystem.Properties.Settings" SettingsPropertyName="UncensoredLibraryConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Accounts" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="AccountID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Association Name="User_Account" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Book_Issues" Member="Book_Issues">
+    <Type Name="Book_Issue">
+      <Column Name="IssueID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IssuedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ReturnDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Fine" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BookID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Book_Book_Issue" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+      <Association Name="User_Book_Issue" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Book">
+      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MinAge" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Author" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Association Name="Book_Book_Issue" Member="Book_Issues" ThisKey="BookID" OtherKey="BookID" Type="Book_Issue" />
+      <Association Name="Book_Stock" Member="Stocks" ThisKey="BookID" OtherKey="BookID" Type="Stock" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Stocks" Member="Stocks">
+    <Type Name="Stock">
+      <Column Name="StockID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BookID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumLeft" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Book_Stock" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
+      <Column Name="Role" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="Age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Account" Member="Accounts" ThisKey="UserID" OtherKey="UserID" Type="Account" />
+      <Association Name="User_Book_Issue" Member="Book_Issues" ThisKey="UserID" OtherKey="UserID" Type="Book_Issue" />
+    </Type>
+  </Table>
+</Database>

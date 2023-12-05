@@ -14,7 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Windows;
+using System.Windows.Controls;
 namespace LibraryManagementSystem.View
 {
     /// <summary>
@@ -27,67 +31,36 @@ namespace LibraryManagementSystem.View
             InitializeComponent();
         }
 
-        private bool testUserExistance(string username, string email, SqlConnection connection)
+        private bool TestUserExistence(string username, string email, UncensoredLibraryDataContext dbContext)
         {
-            string checkUserQuery = "SELECT COUNT(*) FROM Accounts WHERE Username = @Username";
-
-            using (SqlCommand checkUserCommand = new SqlCommand(checkUserQuery, connection))
-            {
-                checkUserCommand.Parameters.AddWithValue("@Username", username);
-                int existingUserCount = (int)checkUserCommand.ExecuteScalar();
-
-                if (existingUserCount > 0)
-                    return true;
-            }
-
-            checkUserQuery = "SELECT COUNT(*) FROM Accounts WHERE Email = @Email";
-
-            using (SqlCommand checkUserCommand = new SqlCommand(checkUserQuery, connection))
-            {
-                checkUserCommand.Parameters.AddWithValue("@Email", email);
-                int existingUserCount = (int)checkUserCommand.ExecuteScalar();
-
-                if(existingUserCount > 0)
-                    return true;
-            }
-            return false;
-
+            return dbContext.Accounts.Any(u => u.Username == username || u.Email == email);
         }
 
-
-
-        private void InsertUserAndAccount(string username, string password, string email, SqlConnection connection)
+        private void InsertUserAndAccount(string username, string password, string email, UncensoredLibraryDataContext dbContext)
         {
-            
             string userRole = "User";
-            string insertUserQuery = "INSERT INTO Users (Role) OUTPUT INSERTED.UserID VALUES (@Role);";
-            int userID;
 
-            using (SqlCommand command = new SqlCommand(insertUserQuery, connection))
-            {
-                command.Parameters.AddWithValue("@Role", userRole);
-                object result = command.ExecuteScalar();
-                userID = Convert.ToInt32(result);
-                Console.WriteLine($"UserID asociat noii înregistrări în Users: {userID}");
-            }
+ 
+            var newUser = new User { Role = userRole };
+            dbContext.Users.InsertOnSubmit(newUser);
+            dbContext.SubmitChanges();
+
 
             string key = "b14ca5898a4e4133bbce2ea2315a1916";
             password = AESCrypt.EncryptString(key, password);
 
-            string insertAccountsQuery = "INSERT INTO Accounts (UserID, Username, Password, Email)" +
-                                        "VALUES (@UserID, @Username, @Password, @Email)";
-
-            using (SqlCommand command = new SqlCommand(insertAccountsQuery, connection))
+            var newAccount = new Account
             {
-                command.Parameters.AddWithValue("@UserID", userID);
-                command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
-                command.Parameters.AddWithValue("@Email", email);
+                UserID = newUser.UserID,
+                Username = username,
+                Password = password,
+                Email = email
+            };
 
-                object result = command.ExecuteScalar();
-            }
+            dbContext.Accounts.InsertOnSubmit(newAccount);
+            dbContext.SubmitChanges();
 
-            MessageBox.Show($"User adăugat cu succes! Username: {username}");
+            MessageBox.Show($"Utilizator adăugat cu succes! Username: {username}");
         }
 
         private void butonRegister_Click(object sender, RoutedEventArgs e)
@@ -101,27 +74,21 @@ namespace LibraryManagementSystem.View
             {
                 MessageBox.Show("Parolele nu sunt egale!");
             }
-
-            if (password == secondPassword)
+            else
             {
-                string connectionString = "Data Source=.;Initial Catalog=UncensoredLibrary;Integrated Security=True";
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (var dbContext = new UncensoredLibraryDataContext())
                 {
                     try
                     {
-                        connection.Open();
-                        Console.WriteLine("The connection has just been opened.");
-
-                        if(testUserExistance(username,email,connection) == false)
+                        if (!TestUserExistence(username, email, dbContext))
                         {
-                            InsertUserAndAccount(username,password,email,connection);
+                            InsertUserAndAccount(username, password, email, dbContext);
                             MessageBox.Show($"A fost introdus utilizatorul {username}!");
                         }
                         else
                         {
-                            MessageBox.Show($"Datele acestui utilizator se afla deja in aplicatie!");
+                            MessageBox.Show($"Datele acestui utilizator se află deja în aplicație!");
                         }
-                      
                     }
                     catch (Exception ex)
                     {

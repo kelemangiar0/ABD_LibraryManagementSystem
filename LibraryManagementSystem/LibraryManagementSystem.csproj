@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,9 +56,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-	<Compile Include="ViewModel\AccountOverviewViewModel.cs" />
-	<Compile Include="ViewModel\AvailableBooksViewModel.cs" />
-    <Compile Include="Account.cs" />
+    <Compile Include="UncensoredLibrary.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UncensoredLibrary.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AccountOverviewViewModel.cs" />
+    <Compile Include="ViewModel\AvailableBooksViewModel.cs" />
     <Compile Include="AESCrypt.cs" />
     <Compile Include="ViewModel\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModel\LoginRegisterWindowViewModel.cs" />
@@ -185,6 +190,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="UncensoredLibrary.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>UncensoredLibrary.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UncensoredLibrary.dbml.layout">
+      <DependentUpon>UncensoredLibrary.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -206,6 +219,9 @@
     <Resource Include="Images\AvailableBooks.png" />
     <Resource Include="Images\TransactionHistory.png" />
     <Resource Include="Images\YourBooks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
