@@ -4,9 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagementSystem.View"
+             xmlns:viewModel="clr-namespace:LibraryManagementSystem.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:TransactionViewModel/>
+    </UserControl.DataContext>
+
     <Grid>
-        <Image Source="./../Images/TransactionHistory.png"/>
+        <ListView ItemsSource="{Binding Transactions}" AlternationCount="2" 
+                  IsSynchronizedWithCurrentItem="True" SelectionMode="Single"
+                  >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Transaction ID" DisplayMemberBinding="{Binding TransactionID}" Width="100"/>
+                    <GridViewColumn Header="Book ID" DisplayMemberBinding="{Binding BookID}" Width="100"/>
+                    <GridViewColumn Header="From User ID" DisplayMemberBinding="{Binding UserID_from}" Width="100"/>
+                    <GridViewColumn Header="To User ID" DisplayMemberBinding="{Binding UserID_to}" Width="100"/>
+                    <GridViewColumn Header="Transaction Date" DisplayMemberBinding="{Binding Date_transaction}" Width="150"/>
+                    <GridViewColumn Header="Penalty Date" DisplayMemberBinding="{Binding Date_penalty}" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>
