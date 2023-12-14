@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,11 +42,14 @@ namespace LibraryManagementSystem.ViewModel
         private void ExecuteShowLogoutViewCommand(object obj)
         {
             CurrentChildView = new LogoutViewModel();
+            
         }
 
         private void ExecuteShowTransactionHistoryViewCommand(object obj)
         {
             CurrentChildView = new TransactionHistoryViewModel();
+
+         
         }
 
         
