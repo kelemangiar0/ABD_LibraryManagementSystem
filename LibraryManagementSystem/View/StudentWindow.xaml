@@ -19,24 +19,26 @@
     </Window.DataContext>
 
 
+
+
     <Window.Resources>
-        
+
         <DataTemplate DataType="{x:Type viewModel:YourBooksViewModel}">
             <view:YourBooksView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModel:AvailableBooksViewModel}">
             <view:AvailableBooksView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModel:TransactionHistoryViewModel}">
             <view:TransactionHistoryView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModel:AccountOverviewViewModel}">
             <view:AccountOverviewView/>
         </DataTemplate>
-        
+
         <DataTemplate DataType="{x:Type viewModel:LogoutViewModel}">
             <view:LogoutView/>
         </DataTemplate>
@@ -69,7 +71,7 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
-                    
+
                 </Grid.RowDefinitions>
 
 
@@ -100,7 +102,9 @@
                     </Button>
 
                     <Image Margin="5,0,0,0" Source="./../Images/Icon.png" HorizontalAlignment="Left" Height="50"/>
-                    <Label Margin="60,0,0,0" Content="Student Florin" Grid.Column="0" Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="#FF4D3916"/>
+                    <Label x:Name="usernameLabel" Margin="60,0,0,0" Grid.Column="0" Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="#FF4D3916">
+
+                    </Label>
                 </Grid>
 
 
@@ -132,7 +136,7 @@
                                  Command="{Binding ShowYourBooksViewCommand}"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Center"
-                                 IsChecked="True">
+                                 IsChecked="True" Checked="RadioButton_Checked">
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
@@ -140,36 +144,36 @@
                                  Content="Available books"
                                  Command="{Binding ShowAvailableBooksViewCommand}"
                                  HorizontalAlignment="Center"
-                                 VerticalAlignment="Center">
+                                 VerticalAlignment="Center" Checked="RadioButton_Checked_1">
                     </RadioButton>
-                    
+
                     <RadioButton Style="{StaticResource menuButton}"
                                  Grid.Column="4"
                                  Content="TransactionHistory"
                                  Command="{Binding ShowTransactionHistoryViewCommand}"
-                                 HorizontalAlignment="Center">          
+                                 HorizontalAlignment="Left" Checked="RadioButton_Checked" Height="45" Margin="7,5,0,0" VerticalAlignment="Top">
                     </RadioButton>
-                    
+
                     <RadioButton Style="{StaticResource menuButton}"
                                  Grid.Column="5"
                                  Content="AccountOverview"
                                  Command="{Binding ShowAccountOverviewViewCommand}"
-                                 HorizontalAlignment="Center">
+                                 HorizontalAlignment="Center" Checked="RadioButton_Checked_1">
                     </RadioButton>
-                    
+
                     <RadioButton Style="{StaticResource menuButton}"
                                  Grid.Column="6"
                                  Content=" "
                                  HorizontalAlignment="Center">
                     </RadioButton>
-                    
+
                     <RadioButton Style="{StaticResource menuButton}"
                                 Grid.Column="7"
                                 Content="Logout"
                                  Command="{Binding ShowLogoutViewCommand}"
                                 HorizontalAlignment="Center">
                     </RadioButton>
-                    
+
                 </Grid>
 
                 <StackPanel Grid.Row="3" Margin="50,0,50,50">
@@ -180,7 +184,7 @@
 
 
 
-                </Grid>
+            </Grid>
         </Border>
     </Border>
 </Window>

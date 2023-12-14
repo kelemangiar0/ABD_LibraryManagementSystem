@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AccountsModel.cs" />
     <Compile Include="Model\TransactionsModel.cs" />
     <Compile Include="UncensoredLibrary.designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,6 +64,7 @@
       <DependentUpon>UncensoredLibrary.dbml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AccountOverviewViewModel.cs" />
+    <Compile Include="ViewModel\AccountsViewModel.cs" />
     <Compile Include="ViewModel\AvailableBooksViewModel.cs" />
     <Compile Include="AESCrypt.cs" />
     <Compile Include="ViewModel\LoginRegisterViewModel.cs" />

@@ -18,9 +18,9 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Transaction ID" DisplayMemberBinding="{Binding TransactionID}" Width="100"/>
-                    <GridViewColumn Header="Book ID" DisplayMemberBinding="{Binding BookID}" Width="100"/>
-                    <GridViewColumn Header="From User ID" DisplayMemberBinding="{Binding UserID_from}" Width="100"/>
-                    <GridViewColumn Header="To User ID" DisplayMemberBinding="{Binding UserID_to}" Width="100"/>
+                    <GridViewColumn Header="Book Name" DisplayMemberBinding="{Binding Bookname}" Width="100"/>
+                    <GridViewColumn Header="From User" DisplayMemberBinding="{Binding Username_from}" Width="100"/>
+                    <GridViewColumn Header="To User" DisplayMemberBinding="{Binding Username_to}" Width="100"/>
                     <GridViewColumn Header="Transaction Date" DisplayMemberBinding="{Binding Date_transaction}" Width="150"/>
                     <GridViewColumn Header="Penalty Date" DisplayMemberBinding="{Binding Date_penalty}" Width="150"/>
                 </GridView>

@@ -15,6 +15,9 @@ namespace LibraryManagementSystem.Model
         public int UserID_to { get; set; }
         public DateTime? Date_transaction { get; set; }
         public DateTime? Date_penalty { get; set; }
+        public string Bookname { get; set; }
+        public string Username_from {  get; set; }
+        public string Username_to { get; set; }
     }
 
 }

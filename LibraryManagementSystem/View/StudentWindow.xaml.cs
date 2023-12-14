@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +20,18 @@ namespace LibraryManagementSystem.View
     /// </summary>
     public partial class StudentWindow : Window
     {
-        public StudentWindow()
+
+        public static string username;
+        public StudentWindow(string username)
         {
             InitializeComponent();
-        }
+            StudentWindow.username = username;
 
+            
+            usernameLabel.Content = "Student " + username ;
+
+        }
+  
         private void butonMinimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -37,6 +45,16 @@ namespace LibraryManagementSystem.View
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed) { DragMove(); }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

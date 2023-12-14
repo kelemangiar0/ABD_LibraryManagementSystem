@@ -1,61 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using LibraryManagementSystem.Model;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for LoginView.xaml
-    /// </summary>
     public partial class LoginView : UserControl
     {
         public LoginView()
         {
             InitializeComponent();
         }
-        private bool passedLogin(string username, string password)
-        {
-     
 
-            string connectionString = "Data Source=.;Initial Catalog=UncensoredLibrary;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+        private bool PassedLogin(string username, string password)
+        {
+            using (var context = new UncensoredLibraryDataContext())
             {
                 try
                 {
-                    connection.Open();
-                    Console.WriteLine("The connection has just been opened.");
-                    string userQuery = "SELECT Password FROM Accounts WHERE Username = @Username";
+                    var user = context.Accounts.SingleOrDefault(a => a.Username == username);
 
-                    using (SqlCommand checkUserCommand = new SqlCommand(userQuery, connection))
+                    if (user != null)
                     {
-                        checkUserCommand.Parameters.AddWithValue("@Username", username);
+                        string storedPassword = user.Password;
+                        string key = "b14ca5898a4e4133bbce2ea2315a1916";
+                        string decryptedPassword = AESCrypt.DecryptString(key, storedPassword);
 
-                        using (SqlDataReader reader = checkUserCommand.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                string storedPassword = reader["Password"].ToString();
-                                string key = "b14ca5898a4e4133bbce2ea2315a1916";
-                                string decryptedPassword = AESCrypt.DecryptString(key, storedPassword);
-
-                                
-                                return decryptedPassword == password;
-                            }
-                        }
+                        return decryptedPassword == password;
                     }
-
 
                     return false;
                 }
@@ -65,25 +38,23 @@ namespace LibraryManagementSystem.View
                     return false;
                 }
             }
-        } 
+        }
 
         private void butonLogin_Click(object sender, RoutedEventArgs e)
         {
             string username = loginUsername.Text;
             string password = loginPassword.Password;
-            if (passedLogin(username, password))
+
+            if (PassedLogin(username, password))
             {
-                StudentWindow studentWindow = new StudentWindow();
+                StudentWindow studentWindow = new StudentWindow(username);
                 studentWindow.Show();
-                //sa inchida fereastra de login/register
                 var myWindow = Window.GetWindow(this);
                 myWindow.Close();
-
-                
             }
             else
             {
-                MessageBox.Show("Eroare logare!");
+                MessageBox.Show("Eroare la autentificare!");
             }
         }
     }

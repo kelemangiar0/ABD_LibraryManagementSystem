@@ -10,18 +10,6 @@
       <Association Name="User_Account" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Book_Issues" Member="Book_Issues">
-    <Type Name="Book_Issue">
-      <Column Name="IssueID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IssuedDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="ReturnDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Fine" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BookID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Book_Book_Issue" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
-      <Association Name="User_Book_Issue" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Books" Member="Books">
     <Type Name="Book">
       <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -29,16 +17,21 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Author" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Category" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Association Name="Book_Book_Issue" Member="Book_Issues" ThisKey="BookID" OtherKey="BookID" Type="Book_Issue" />
-      <Association Name="Book_Stock" Member="Stocks" ThisKey="BookID" OtherKey="BookID" Type="Stock" />
+      <Column Name="Description" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
+      <Association Name="Book_Transaction" Member="Transactions" ThisKey="BookID" OtherKey="BookID" Type="Transaction" />
     </Type>
   </Table>
-  <Table Name="dbo.Stocks" Member="Stocks">
-    <Type Name="Stock">
-      <Column Name="StockID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.Transactions" Member="Transactions">
+    <Type Name="Transaction">
+      <Column Name="TransactionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="BookID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NumLeft" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Book_Stock" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+      <Column Name="UserID_from" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID_to" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date_transaction" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Date_penalty" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Book_Transaction" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+      <Association Name="User_Transaction" Member="User" ThisKey="UserID_from" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Transaction1" Member="User1" ThisKey="UserID_to" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -47,8 +40,13 @@
       <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Role" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
       <Column Name="Age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateRegistered" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="FirstBookDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="LastBookDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ProfilePicture" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
       <Association Name="User_Account" Member="Accounts" ThisKey="UserID" OtherKey="UserID" Type="Account" />
-      <Association Name="User_Book_Issue" Member="Book_Issues" ThisKey="UserID" OtherKey="UserID" Type="Book_Issue" />
+      <Association Name="User_Transaction" Member="Transactions" ThisKey="UserID" OtherKey="UserID_from" Type="Transaction" />
+      <Association Name="User_Transaction1" Member="Transactions1" ThisKey="UserID" OtherKey="UserID_to" Type="Transaction" />
     </Type>
   </Table>
 </Database>

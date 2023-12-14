@@ -11,7 +11,7 @@
         MouseDown="Window_MouseDown"
         Background="Transparent"
         AllowsTransparency="True">
-    
+
     <Border CornerRadius="15">
         <Border.Background>
             <ImageBrush ImageSource="./../images/background.png" 
@@ -66,7 +66,7 @@
                     </Button>
 
                     <Image Margin="5,0,0,0" Source="./../Images/Icon2.png" HorizontalAlignment="Left" Height="50"/>
-                    <Label Margin="60,0,0,0" Content="Librarian Florin" Grid.Column="0" Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="DarkMagenta"/>
+                    <Label Content="Librarian Florin" Grid.Column="0" Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="DarkMagenta" Margin="60,0,0,0"/>
                 </Grid>
 
 

@@ -39,9 +39,9 @@ namespace LibraryManagementSystem.View
         private void InsertUserAndAccount(string username, string password, string email, UncensoredLibraryDataContext dbContext)
         {
             string userRole = "User";
-
- 
+            
             var newUser = new User { Role = userRole };
+            
             dbContext.Users.InsertOnSubmit(newUser);
             dbContext.SubmitChanges();
 
@@ -56,7 +56,7 @@ namespace LibraryManagementSystem.View
                 Password = password,
                 Email = email
             };
-
+            
             dbContext.Accounts.InsertOnSubmit(newAccount);
             dbContext.SubmitChanges();
 

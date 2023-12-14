@@ -33,15 +33,12 @@ namespace LibraryManagementSystem
     partial void InsertAccount(Account instance);
     partial void UpdateAccount(Account instance);
     partial void DeleteAccount(Account instance);
-    partial void InsertBook_Issue(Book_Issue instance);
-    partial void UpdateBook_Issue(Book_Issue instance);
-    partial void DeleteBook_Issue(Book_Issue instance);
     partial void InsertBook(Book instance);
     partial void UpdateBook(Book instance);
     partial void DeleteBook(Book instance);
-    partial void InsertStock(Stock instance);
-    partial void UpdateStock(Stock instance);
-    partial void DeleteStock(Stock instance);
+    partial void InsertTransaction(Transaction instance);
+    partial void UpdateTransaction(Transaction instance);
+    partial void DeleteTransaction(Transaction instance);
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
@@ -85,14 +82,6 @@ namespace LibraryManagementSystem
 			}
 		}
 		
-		public System.Data.Linq.Table<Book_Issue> Book_Issues
-		{
-			get
-			{
-				return this.GetTable<Book_Issue>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Book> Books
 		{
 			get
@@ -101,11 +90,11 @@ namespace LibraryManagementSystem
 			}
 		}
 		
-		public System.Data.Linq.Table<Stock> Stocks
+		public System.Data.Linq.Table<Transaction> Transactions
 		{
 			get
 			{
-				return this.GetTable<Stock>();
+				return this.GetTable<Transaction>();
 			}
 		}
 		
@@ -317,270 +306,6 @@ namespace LibraryManagementSystem
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Book_Issues")]
-	public partial class Book_Issue : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _IssueID;
-		
-		private System.Nullable<int> _UserID;
-		
-		private System.Nullable<System.DateTime> _IssuedDate;
-		
-		private System.Nullable<System.DateTime> _ReturnDate;
-		
-		private System.Nullable<int> _Fine;
-		
-		private System.Nullable<int> _BookID;
-		
-		private EntityRef<Book> _Book;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIssueIDChanging(int value);
-    partial void OnIssueIDChanged();
-    partial void OnUserIDChanging(System.Nullable<int> value);
-    partial void OnUserIDChanged();
-    partial void OnIssuedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnIssuedDateChanged();
-    partial void OnReturnDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnReturnDateChanged();
-    partial void OnFineChanging(System.Nullable<int> value);
-    partial void OnFineChanged();
-    partial void OnBookIDChanging(System.Nullable<int> value);
-    partial void OnBookIDChanged();
-    #endregion
-		
-		public Book_Issue()
-		{
-			this._Book = default(EntityRef<Book>);
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IssueID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IssueID
-		{
-			get
-			{
-				return this._IssueID;
-			}
-			set
-			{
-				if ((this._IssueID != value))
-				{
-					this.OnIssueIDChanging(value);
-					this.SendPropertyChanging();
-					this._IssueID = value;
-					this.SendPropertyChanged("IssueID");
-					this.OnIssueIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
-		public System.Nullable<int> UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IssuedDate", DbType="Date")]
-		public System.Nullable<System.DateTime> IssuedDate
-		{
-			get
-			{
-				return this._IssuedDate;
-			}
-			set
-			{
-				if ((this._IssuedDate != value))
-				{
-					this.OnIssuedDateChanging(value);
-					this.SendPropertyChanging();
-					this._IssuedDate = value;
-					this.SendPropertyChanged("IssuedDate");
-					this.OnIssuedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReturnDate", DbType="Date")]
-		public System.Nullable<System.DateTime> ReturnDate
-		{
-			get
-			{
-				return this._ReturnDate;
-			}
-			set
-			{
-				if ((this._ReturnDate != value))
-				{
-					this.OnReturnDateChanging(value);
-					this.SendPropertyChanging();
-					this._ReturnDate = value;
-					this.SendPropertyChanged("ReturnDate");
-					this.OnReturnDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fine", DbType="Int")]
-		public System.Nullable<int> Fine
-		{
-			get
-			{
-				return this._Fine;
-			}
-			set
-			{
-				if ((this._Fine != value))
-				{
-					this.OnFineChanging(value);
-					this.SendPropertyChanging();
-					this._Fine = value;
-					this.SendPropertyChanged("Fine");
-					this.OnFineChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BookID", DbType="Int")]
-		public System.Nullable<int> BookID
-		{
-			get
-			{
-				return this._BookID;
-			}
-			set
-			{
-				if ((this._BookID != value))
-				{
-					if (this._Book.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnBookIDChanging(value);
-					this.SendPropertyChanging();
-					this._BookID = value;
-					this.SendPropertyChanged("BookID");
-					this.OnBookIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Book_Issue", Storage="_Book", ThisKey="BookID", OtherKey="BookID", IsForeignKey=true)]
-		public Book Book
-		{
-			get
-			{
-				return this._Book.Entity;
-			}
-			set
-			{
-				Book previousValue = this._Book.Entity;
-				if (((previousValue != value) 
-							|| (this._Book.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Book.Entity = null;
-						previousValue.Book_Issues.Remove(this);
-					}
-					this._Book.Entity = value;
-					if ((value != null))
-					{
-						value.Book_Issues.Add(this);
-						this._BookID = value.BookID;
-					}
-					else
-					{
-						this._BookID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Book");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Book_Issue", Storage="_User", ThisKey="UserID", OtherKey="UserID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Book_Issues.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Book_Issues.Add(this);
-						this._UserID = value.UserID;
-					}
-					else
-					{
-						this._UserID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Books")]
 	public partial class Book : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -597,9 +322,9 @@ namespace LibraryManagementSystem
 		
 		private string _Category;
 		
-		private EntitySet<Book_Issue> _Book_Issues;
+		private string _Description;
 		
-		private EntitySet<Stock> _Stocks;
+		private EntitySet<Transaction> _Transactions;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -615,12 +340,13 @@ namespace LibraryManagementSystem
     partial void OnAuthorChanged();
     partial void OnCategoryChanging(string value);
     partial void OnCategoryChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
     #endregion
 		
 		public Book()
 		{
-			this._Book_Issues = new EntitySet<Book_Issue>(new Action<Book_Issue>(this.attach_Book_Issues), new Action<Book_Issue>(this.detach_Book_Issues));
-			this._Stocks = new EntitySet<Stock>(new Action<Stock>(this.attach_Stocks), new Action<Stock>(this.detach_Stocks));
+			this._Transactions = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transactions), new Action<Transaction>(this.detach_Transactions));
 			OnCreated();
 		}
 		
@@ -724,29 +450,36 @@ namespace LibraryManagementSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Book_Issue", Storage="_Book_Issues", ThisKey="BookID", OtherKey="BookID")]
-		public EntitySet<Book_Issue> Book_Issues
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NChar(128)")]
+		public string Description
 		{
 			get
 			{
-				return this._Book_Issues;
+				return this._Description;
 			}
 			set
 			{
-				this._Book_Issues.Assign(value);
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Stock", Storage="_Stocks", ThisKey="BookID", OtherKey="BookID")]
-		public EntitySet<Stock> Stocks
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Transaction", Storage="_Transactions", ThisKey="BookID", OtherKey="BookID")]
+		public EntitySet<Transaction> Transactions
 		{
 			get
 			{
-				return this._Stocks;
+				return this._Transactions;
 			}
 			set
 			{
-				this._Stocks.Assign(value);
+				this._Transactions.Assign(value);
 			}
 		}
 		
@@ -770,79 +503,85 @@ namespace LibraryManagementSystem
 			}
 		}
 		
-		private void attach_Book_Issues(Book_Issue entity)
+		private void attach_Transactions(Transaction entity)
 		{
 			this.SendPropertyChanging();
 			entity.Book = this;
 		}
 		
-		private void detach_Book_Issues(Book_Issue entity)
-		{
-			this.SendPropertyChanging();
-			entity.Book = null;
-		}
-		
-		private void attach_Stocks(Stock entity)
-		{
-			this.SendPropertyChanging();
-			entity.Book = this;
-		}
-		
-		private void detach_Stocks(Stock entity)
+		private void detach_Transactions(Transaction entity)
 		{
 			this.SendPropertyChanging();
 			entity.Book = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Stocks")]
-	public partial class Stock : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Transactions")]
+	public partial class Transaction : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _StockID;
+		private int _TransactionID;
 		
 		private System.Nullable<int> _BookID;
 		
-		private System.Nullable<int> _NumLeft;
+		private System.Nullable<int> _UserID_from;
+		
+		private System.Nullable<int> _UserID_to;
+		
+		private System.Nullable<System.DateTime> _Date_transaction;
+		
+		private System.Nullable<System.DateTime> _Date_penalty;
 		
 		private EntityRef<Book> _Book;
+		
+		private EntityRef<User> _User;
+		
+		private EntityRef<User> _User1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnStockIDChanging(int value);
-    partial void OnStockIDChanged();
+    partial void OnTransactionIDChanging(int value);
+    partial void OnTransactionIDChanged();
     partial void OnBookIDChanging(System.Nullable<int> value);
     partial void OnBookIDChanged();
-    partial void OnNumLeftChanging(System.Nullable<int> value);
-    partial void OnNumLeftChanged();
+    partial void OnUserID_fromChanging(System.Nullable<int> value);
+    partial void OnUserID_fromChanged();
+    partial void OnUserID_toChanging(System.Nullable<int> value);
+    partial void OnUserID_toChanged();
+    partial void OnDate_transactionChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_transactionChanged();
+    partial void OnDate_penaltyChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_penaltyChanged();
     #endregion
 		
-		public Stock()
+		public Transaction()
 		{
 			this._Book = default(EntityRef<Book>);
+			this._User = default(EntityRef<User>);
+			this._User1 = default(EntityRef<User>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int StockID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int TransactionID
 		{
 			get
 			{
-				return this._StockID;
+				return this._TransactionID;
 			}
 			set
 			{
-				if ((this._StockID != value))
+				if ((this._TransactionID != value))
 				{
-					this.OnStockIDChanging(value);
+					this.OnTransactionIDChanging(value);
 					this.SendPropertyChanging();
-					this._StockID = value;
-					this.SendPropertyChanged("StockID");
-					this.OnStockIDChanged();
+					this._TransactionID = value;
+					this.SendPropertyChanged("TransactionID");
+					this.OnTransactionIDChanged();
 				}
 			}
 		}
@@ -871,27 +610,95 @@ namespace LibraryManagementSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumLeft", DbType="Int")]
-		public System.Nullable<int> NumLeft
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID_from", DbType="Int")]
+		public System.Nullable<int> UserID_from
 		{
 			get
 			{
-				return this._NumLeft;
+				return this._UserID_from;
 			}
 			set
 			{
-				if ((this._NumLeft != value))
+				if ((this._UserID_from != value))
 				{
-					this.OnNumLeftChanging(value);
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserID_fromChanging(value);
 					this.SendPropertyChanging();
-					this._NumLeft = value;
-					this.SendPropertyChanged("NumLeft");
-					this.OnNumLeftChanged();
+					this._UserID_from = value;
+					this.SendPropertyChanged("UserID_from");
+					this.OnUserID_fromChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Stock", Storage="_Book", ThisKey="BookID", OtherKey="BookID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID_to", DbType="Int")]
+		public System.Nullable<int> UserID_to
+		{
+			get
+			{
+				return this._UserID_to;
+			}
+			set
+			{
+				if ((this._UserID_to != value))
+				{
+					if (this._User1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserID_toChanging(value);
+					this.SendPropertyChanging();
+					this._UserID_to = value;
+					this.SendPropertyChanged("UserID_to");
+					this.OnUserID_toChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_transaction", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_transaction
+		{
+			get
+			{
+				return this._Date_transaction;
+			}
+			set
+			{
+				if ((this._Date_transaction != value))
+				{
+					this.OnDate_transactionChanging(value);
+					this.SendPropertyChanging();
+					this._Date_transaction = value;
+					this.SendPropertyChanged("Date_transaction");
+					this.OnDate_transactionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_penalty", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_penalty
+		{
+			get
+			{
+				return this._Date_penalty;
+			}
+			set
+			{
+				if ((this._Date_penalty != value))
+				{
+					this.OnDate_penaltyChanging(value);
+					this.SendPropertyChanging();
+					this._Date_penalty = value;
+					this.SendPropertyChanged("Date_penalty");
+					this.OnDate_penaltyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Book_Transaction", Storage="_Book", ThisKey="BookID", OtherKey="BookID", IsForeignKey=true)]
 		public Book Book
 		{
 			get
@@ -908,12 +715,12 @@ namespace LibraryManagementSystem
 					if ((previousValue != null))
 					{
 						this._Book.Entity = null;
-						previousValue.Stocks.Remove(this);
+						previousValue.Transactions.Remove(this);
 					}
 					this._Book.Entity = value;
 					if ((value != null))
 					{
-						value.Stocks.Add(this);
+						value.Transactions.Add(this);
 						this._BookID = value.BookID;
 					}
 					else
@@ -921,6 +728,74 @@ namespace LibraryManagementSystem
 						this._BookID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Book");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction", Storage="_User", ThisKey="UserID_from", OtherKey="UserID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Transactions.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Transactions.Add(this);
+						this._UserID_from = value.UserID;
+					}
+					else
+					{
+						this._UserID_from = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction1", Storage="_User1", ThisKey="UserID_to", OtherKey="UserID", IsForeignKey=true)]
+		public User User1
+		{
+			get
+			{
+				return this._User1.Entity;
+			}
+			set
+			{
+				User previousValue = this._User1.Entity;
+				if (((previousValue != value) 
+							|| (this._User1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User1.Entity = null;
+						previousValue.Transactions1.Remove(this);
+					}
+					this._User1.Entity = value;
+					if ((value != null))
+					{
+						value.Transactions1.Add(this);
+						this._UserID_to = value.UserID;
+					}
+					else
+					{
+						this._UserID_to = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User1");
 				}
 			}
 		}
@@ -960,9 +835,19 @@ namespace LibraryManagementSystem
 		
 		private System.Nullable<int> _Age;
 		
+		private System.Nullable<System.DateTime> _DateRegistered;
+		
+		private System.Nullable<System.DateTime> _FirstBookDate;
+		
+		private System.Nullable<System.DateTime> _LastBookDate;
+		
+		private string _ProfilePicture;
+		
 		private EntitySet<Account> _Accounts;
 		
-		private EntitySet<Book_Issue> _Book_Issues;
+		private EntitySet<Transaction> _Transactions;
+		
+		private EntitySet<Transaction> _Transactions1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -976,12 +861,21 @@ namespace LibraryManagementSystem
     partial void OnRoleChanged();
     partial void OnAgeChanging(System.Nullable<int> value);
     partial void OnAgeChanged();
+    partial void OnDateRegisteredChanging(System.Nullable<System.DateTime> value);
+    partial void OnDateRegisteredChanged();
+    partial void OnFirstBookDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnFirstBookDateChanged();
+    partial void OnLastBookDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnLastBookDateChanged();
+    partial void OnProfilePictureChanging(string value);
+    partial void OnProfilePictureChanged();
     #endregion
 		
 		public User()
 		{
 			this._Accounts = new EntitySet<Account>(new Action<Account>(this.attach_Accounts), new Action<Account>(this.detach_Accounts));
-			this._Book_Issues = new EntitySet<Book_Issue>(new Action<Book_Issue>(this.attach_Book_Issues), new Action<Book_Issue>(this.detach_Book_Issues));
+			this._Transactions = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transactions), new Action<Transaction>(this.detach_Transactions));
+			this._Transactions1 = new EntitySet<Transaction>(new Action<Transaction>(this.attach_Transactions1), new Action<Transaction>(this.detach_Transactions1));
 			OnCreated();
 		}
 		
@@ -1065,6 +959,86 @@ namespace LibraryManagementSystem
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateRegistered", DbType="Date")]
+		public System.Nullable<System.DateTime> DateRegistered
+		{
+			get
+			{
+				return this._DateRegistered;
+			}
+			set
+			{
+				if ((this._DateRegistered != value))
+				{
+					this.OnDateRegisteredChanging(value);
+					this.SendPropertyChanging();
+					this._DateRegistered = value;
+					this.SendPropertyChanged("DateRegistered");
+					this.OnDateRegisteredChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstBookDate", DbType="Date")]
+		public System.Nullable<System.DateTime> FirstBookDate
+		{
+			get
+			{
+				return this._FirstBookDate;
+			}
+			set
+			{
+				if ((this._FirstBookDate != value))
+				{
+					this.OnFirstBookDateChanging(value);
+					this.SendPropertyChanging();
+					this._FirstBookDate = value;
+					this.SendPropertyChanged("FirstBookDate");
+					this.OnFirstBookDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastBookDate", DbType="Date")]
+		public System.Nullable<System.DateTime> LastBookDate
+		{
+			get
+			{
+				return this._LastBookDate;
+			}
+			set
+			{
+				if ((this._LastBookDate != value))
+				{
+					this.OnLastBookDateChanging(value);
+					this.SendPropertyChanging();
+					this._LastBookDate = value;
+					this.SendPropertyChanged("LastBookDate");
+					this.OnLastBookDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProfilePicture", DbType="NChar(128)")]
+		public string ProfilePicture
+		{
+			get
+			{
+				return this._ProfilePicture;
+			}
+			set
+			{
+				if ((this._ProfilePicture != value))
+				{
+					this.OnProfilePictureChanging(value);
+					this.SendPropertyChanging();
+					this._ProfilePicture = value;
+					this.SendPropertyChanged("ProfilePicture");
+					this.OnProfilePictureChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Account", Storage="_Accounts", ThisKey="UserID", OtherKey="UserID")]
 		public EntitySet<Account> Accounts
 		{
@@ -1078,16 +1052,29 @@ namespace LibraryManagementSystem
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Book_Issue", Storage="_Book_Issues", ThisKey="UserID", OtherKey="UserID")]
-		public EntitySet<Book_Issue> Book_Issues
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction", Storage="_Transactions", ThisKey="UserID", OtherKey="UserID_from")]
+		public EntitySet<Transaction> Transactions
 		{
 			get
 			{
-				return this._Book_Issues;
+				return this._Transactions;
 			}
 			set
 			{
-				this._Book_Issues.Assign(value);
+				this._Transactions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Transaction1", Storage="_Transactions1", ThisKey="UserID", OtherKey="UserID_to")]
+		public EntitySet<Transaction> Transactions1
+		{
+			get
+			{
+				return this._Transactions1;
+			}
+			set
+			{
+				this._Transactions1.Assign(value);
 			}
 		}
 		
@@ -1123,16 +1110,28 @@ namespace LibraryManagementSystem
 			entity.User = null;
 		}
 		
-		private void attach_Book_Issues(Book_Issue entity)
+		private void attach_Transactions(Transaction entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = this;
 		}
 		
-		private void detach_Book_Issues(Book_Issue entity)
+		private void detach_Transactions(Transaction entity)
 		{
 			this.SendPropertyChanging();
 			entity.User = null;
+		}
+		
+		private void attach_Transactions1(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = this;
+		}
+		
+		private void detach_Transactions1(Transaction entity)
+		{
+			this.SendPropertyChanging();
+			entity.User1 = null;
 		}
 	}
 }
