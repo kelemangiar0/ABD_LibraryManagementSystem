@@ -23,11 +23,43 @@ namespace LibraryManagementSystem.View
         public AvailableBooksView()
         {
             InitializeComponent();
+            calendar.Visibility = Visibility.Collapsed;
+            confirmBorrow.Visibility = Visibility.Collapsed;
+            cancelBorrow.Visibility = Visibility.Collapsed;
+            fromDate.Visibility = Visibility.Collapsed;
+            toDate.Visibility = Visibility.Collapsed;
+            bookTitle.Visibility = Visibility.Collapsed;
         }
 
         private void borrowButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            //todo check if one row is selected
+            //todo confirm prompt
+            confirmBorrow.Visibility = Visibility.Visible;
+            cancelBorrow.Visibility = Visibility.Visible;
+            borrowButton.Visibility = Visibility.Collapsed;
+            dataGrid.Visibility = Visibility.Collapsed;
+            calendar.Visibility = Visibility.Visible;
+            fromDate.Visibility = Visibility.Visible;
+            toDate.Visibility = Visibility.Visible;
+            bookTitle.Visibility = Visibility.Visible;
+        }
+
+        private void cancelBorrow_Click(object sender, RoutedEventArgs e)
+        {
+            confirmBorrow.Visibility = Visibility.Collapsed;
+            cancelBorrow.Visibility = Visibility.Collapsed;
+            borrowButton.Visibility = Visibility.Visible;
+            dataGrid.Visibility = Visibility.Visible;
+            calendar.Visibility = Visibility.Collapsed;
+            fromDate.Visibility = Visibility.Collapsed;
+            toDate.Visibility = Visibility.Collapsed;
+            bookTitle.Visibility = Visibility.Collapsed;
+        }
+
+        private void confirmBorrow_Click(object sender, RoutedEventArgs e)
+        {
+            //todo
         }
     }
 }

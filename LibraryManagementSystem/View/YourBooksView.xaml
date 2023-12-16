@@ -11,7 +11,7 @@
     <UserControl.DataContext>
         <viewModel:YourBooksViewModel/>
     </UserControl.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
 
@@ -19,7 +19,7 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Height="450" ItemsSource="{Binding Books}" AutoGenerateColumns="False" RowHeaderWidth="0" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="0">
+        <DataGrid x:Name="dataGrid" Style="{StaticResource TransactionsDataGrid1}" ItemsSource="{Binding Books}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding BookID}" Width="35"/>
                 <DataGridTextColumn Header="Min Age" Binding="{Binding MinAge}" Width="*"/>
@@ -29,6 +29,7 @@
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+
         <Grid Grid.Row="1 ">
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="*" />
@@ -36,25 +37,34 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            
-     <Button Margin="0,-110,0,0" x:Name="returnBookButton" Style="{StaticResource bigButton}" Content="Return book" Grid.Column="0" Click="returnBookButton_Click">
-         <Button.Tag>
-             <SolidColorBrush Color="Beige" />
-         </Button.Tag>
-     </Button>
-            <!--
-            <Button Margin="0,-110,0,0" x:Name="borrowButton" Style="{StaticResource bigButton}" Content="Borrow Book" Grid.Column="1">
+
+            <Button Margin="0,-110,0,0" x:Name="returnBookButton" Style="{StaticResource bigButton}" Content="Return book" Grid.Column="0" Click="returnBookButton_Click">
                 <Button.Tag>
                     <SolidColorBrush Color="Beige" />
                 </Button.Tag>
             </Button>
- -->
-     <Button Margin="0,-110,0,0" x:Name="borrowToButton" Style="{StaticResource bigButton}" Content="Borrow to..." Grid.Column="2" Click="borrowToButton_Click">
-         <Button.Tag>
-             <SolidColorBrush Color="Beige" />
-         </Button.Tag>
-     </Button>
+
+            <Button Margin="0,-110,0,0" x:Name="cancelBorrowTo" Style="{StaticResource bigButton}" Content="Cancel" Grid.Column="0" Click="cancelBorrowTo_Click">
+                <Button.Tag>
+                    <SolidColorBrush Color="Red" />
+                </Button.Tag>
+            </Button>
+
+            <Button Margin="0,-110,0,0" x:Name="borrowToButton" Style="{StaticResource bigButton}" Content="Borrow to..." Grid.Column="2" Click="borrowToButton_Click">
+                <Button.Tag>
+                    <SolidColorBrush Color="Beige" />
+                </Button.Tag>
+            </Button>
+
+            <Button Margin="0,-110,0,0" x:Name="confirmBorrowTo" Style="{StaticResource bigButton}" Content="Confirm" Grid.Column="2" Click="confirmBorrowTo_Click">
+                <Button.Tag>
+                    <SolidColorBrush Color="Green" />
+                </Button.Tag>
+            </Button>
 
         </Grid>
+        <ComboBox x:Name="selectComboBox" FontSize="20" HorizontalAlignment="Left" Margin="650,194,0,0" VerticalAlignment="Top" Width="248" SelectionChanged="userSelect_SelectionChanged" RenderTransformOrigin="0.478,-0.146" Height="38"/>
+        <Label x:Name="selectText" Content="Select user to borrow to:" FontSize="30" HorizontalAlignment="Left" Margin="250,188,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </UserControl>

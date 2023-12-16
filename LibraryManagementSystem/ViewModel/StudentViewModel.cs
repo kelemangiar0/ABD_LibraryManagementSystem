@@ -41,8 +41,7 @@ namespace LibraryManagementSystem.ViewModel
 
         private void ExecuteShowLogoutViewCommand(object obj)
         {
-            CurrentChildView = new LogoutViewModel();
-            
+            CurrentChildView = new LogoutViewModel(); 
         }
 
         private void ExecuteShowTransactionHistoryViewCommand(object obj)

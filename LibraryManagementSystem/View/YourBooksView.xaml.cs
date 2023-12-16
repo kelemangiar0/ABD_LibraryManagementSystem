@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,16 +24,50 @@ namespace LibraryManagementSystem.View
         public YourBooksView()
         {
             InitializeComponent();
+            
+            cancelBorrowTo.Visibility = Visibility.Collapsed;
+            confirmBorrowTo.Visibility = Visibility.Collapsed;
+            selectComboBox.Visibility = Visibility.Collapsed;
+            selectText.Visibility = Visibility.Collapsed;
         }
 
         private void borrowToButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            //todo check if one row is selected
+            dataGrid.Visibility = Visibility.Collapsed;
+            borrowToButton.Visibility = Visibility.Collapsed;
+            returnBookButton.Visibility = Visibility.Collapsed;
+            selectComboBox.Visibility = Visibility.Visible;
+            selectText.Visibility = Visibility.Visible;
+            cancelBorrowTo.Visibility = Visibility.Visible;
+            confirmBorrowTo.Visibility = Visibility.Visible;
         }
 
         private void returnBookButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            //todo check if one row is selected
+            //todo confirm prompt
+        }
+
+        private void cancelBorrowTo_Click(object sender, RoutedEventArgs e)
+        {
+            dataGrid.Visibility = Visibility.Visible;
+            borrowToButton.Visibility = Visibility.Visible;
+            returnBookButton.Visibility = Visibility.Visible;
+            selectComboBox.Visibility = Visibility.Collapsed;
+            selectText.Visibility = Visibility.Collapsed;
+            cancelBorrowTo.Visibility = Visibility.Collapsed;
+            confirmBorrowTo.Visibility = Visibility.Collapsed;
+        }
+
+        private void confirmBorrowTo_Click(object sender, RoutedEventArgs e)
+        {
+            //todo DB
+        }
+
+        private void userSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //todo DB
         }
     }
 
