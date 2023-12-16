@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:LibraryManagementSystem"
              StartupUri="View/LoadingScreen.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="Styles/Buttons.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="Styles/Datagrids.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

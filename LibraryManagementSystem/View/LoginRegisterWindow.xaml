@@ -85,15 +85,8 @@
                             <SolidColorBrush Color="Red" />
                         </Button.Tag>
                     </Button>
-    
+
                 </Grid>
-
-
-
-
-
-
-
 
                 <StackPanel Width="600" Grid.Row="1" Margin="0,25,0,0">
 
@@ -101,7 +94,7 @@
 
                     <TextBlock Text="The Uncensored Library" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FF4D3916"/>
 
-                    <Grid>
+                    <Grid Height="266">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>

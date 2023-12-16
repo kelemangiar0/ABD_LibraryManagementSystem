@@ -24,5 +24,13 @@ namespace LibraryManagementSystem.View
         {
             InitializeComponent();
         }
+
+        private void filterButton_Click(object sender, RoutedEventArgs e)
+        {
+            //ia din textbox si filtreaza pe baza la ala
+            //daca nu exista nu afiseaza nimic pur si simplu
+            //filterBox.Text
+            Application.Current.Shutdown();
+        }
     }
 }
