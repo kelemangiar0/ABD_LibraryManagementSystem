@@ -129,7 +129,7 @@
                                  Command="{Binding ShowYourBooksViewCommand}"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Center"
-                                 IsChecked="True" Checked="RadioButton_Checked">
+                                 IsChecked="True">
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
@@ -137,21 +137,22 @@
                                  Content="Available books"
                                  Command="{Binding ShowAvailableBooksViewCommand}"
                                  HorizontalAlignment="Center"
-                                 VerticalAlignment="Center" Checked="RadioButton_Checked_1">
+                                 VerticalAlignment="Center">
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Grid.Column="4"
                                  Content="Transaction History"
                                  Command="{Binding ShowTransactionHistoryViewCommand}"
-                                 HorizontalAlignment="Left" Checked="RadioButton_Checked" Height="45" Margin="7,5,0,0" VerticalAlignment="Top">
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center">
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Grid.Column="5"
                                  Content="Account Overview"
                                  Command="{Binding ShowAccountOverviewViewCommand}"
-                                 HorizontalAlignment="Center" Checked="RadioButton_Checked_1">
+                                 HorizontalAlignment="Center">
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"

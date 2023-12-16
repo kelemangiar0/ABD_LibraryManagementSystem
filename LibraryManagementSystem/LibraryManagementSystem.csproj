@@ -57,7 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\AccountsModel.cs" />
+    <Compile Include="Model\AvailableBooksModel.cs" />
     <Compile Include="Model\TransactionsModel.cs" />
+    <Compile Include="Model\YourBooksModel.cs" />
     <Compile Include="UncensoredLibrary.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

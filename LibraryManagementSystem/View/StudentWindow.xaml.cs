@@ -25,11 +25,8 @@ namespace LibraryManagementSystem.View
         public StudentWindow(string username)
         {
             InitializeComponent();
-            StudentWindow.username = username;
-
-            
+            StudentWindow.username = username;       
             usernameLabel.Content = "Student " + username ;
-
         }
   
         private void butonMinimize_Click(object sender, RoutedEventArgs e)
@@ -45,16 +42,6 @@ namespace LibraryManagementSystem.View
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed) { DragMove(); }
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

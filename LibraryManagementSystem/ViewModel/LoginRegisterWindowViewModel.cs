@@ -12,20 +12,6 @@ namespace LibraryManagementSystem.ViewModel
     {
 
         private ViewModelBase _currentChildView;
-        //private bool _isViewVisible = true;
-        //public bool IsViewVisible
-        //{
-        //    get
-        //    {
-        //        return _isViewVisible;
-        //    }
-
-        //    set
-        //    {
-        //        _isViewVisible = value;
-        //        OnPropertyChanged(nameof(IsViewVisible));
-        //    }
-        //}
 
         public ICommand ShowLoginRegisterViewCommand {  get; }
         public ICommand ShowLoginViewCommand { get; }  
@@ -36,8 +22,7 @@ namespace LibraryManagementSystem.ViewModel
             set { _currentChildView = value; OnPropertyChanged(nameof(CurrentChildView)); }
         }
         public LoginRegisterWindowViewModel() 
-        {     
-            //trebuie initializate toate paginile in memorie inainte de hide/show
+        {
             ShowLoginRegisterViewCommand = new ViewModelCommand(ExecuteShowLoginRegisterViewCommand);
             ShowLoginViewCommand = new ViewModelCommand(ExecuteShowLoginViewCommand);
             ShowRegisterViewCommand = new ViewModelCommand(ExecuteShowRegisterViewCommand);

@@ -48,11 +48,7 @@ namespace LibraryManagementSystem.ViewModel
         private void ExecuteShowTransactionHistoryViewCommand(object obj)
         {
             CurrentChildView = new TransactionHistoryViewModel();
-
-         
         }
-
-        
 
         private void ExecuteShowAvailableBooksViewCommand(object obj)
         {
@@ -64,6 +60,5 @@ namespace LibraryManagementSystem.ViewModel
            CurrentChildView = new YourBooksViewModel();
         }
 
-       
     }
 }

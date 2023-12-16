@@ -24,5 +24,17 @@ namespace LibraryManagementSystem.View
         {
             InitializeComponent();
         }
+
+        private void borrowToButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
+
+        private void returnBookButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Collapsed;
+        }
     }
+
+
 }
