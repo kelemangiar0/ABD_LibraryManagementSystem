@@ -15,9 +15,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-
-
 namespace LibraryManagementSystem.View
 {
     /// <summary>
@@ -93,18 +90,9 @@ namespace LibraryManagementSystem.View
         {
             int selectedBookID = ((YourBooksModel)dataGrid.SelectedItem).BookID;
             int ID = findUserID(StudentWindow.username) ?? 0;
-            int LIBRARY_ID = 999;
-
 
             using (var context = new UncensoredLibraryDataContext())
             {
-                var lastTransaction = context.Transactions
-                    .Where(t => t.BookID == selectedBookID && t.UserID_from == ID && t.UserID_to == ID)
-                    .OrderByDescending(t => t.Date_transaction)
-                    .FirstOrDefault();
-
-                if (lastTransaction != null)
-                {
                     var returnTransaction = new Transaction
                     {
                         BookID = selectedBookID,
@@ -118,7 +106,7 @@ namespace LibraryManagementSystem.View
                     context.SubmitChanges();
 
                     var returnedBook = context.BooksOwneds
-                        .Where(b => b.UserID == ID && b.BookID == selectedBookID && b.TransactionID == lastTransaction.TransactionID)
+                        .Where(b => b.UserID == ID && b.BookID == selectedBookID)
                         .FirstOrDefault();
 
                     if (returnedBook != null)
@@ -128,11 +116,6 @@ namespace LibraryManagementSystem.View
                     }
 
                     MessageBox.Show("Book returned successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("No active transaction found for the selected book.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
             }
         }
 

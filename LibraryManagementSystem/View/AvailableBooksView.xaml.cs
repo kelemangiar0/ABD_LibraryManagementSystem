@@ -1,5 +1,4 @@
 ﻿using LibraryManagementSystem.Model;
-using LibraryManagementSystem.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,7 +104,7 @@ namespace LibraryManagementSystem.View
                     var newTransaction = new Transaction
                     {
                         BookID = selectedBookID,
-                        UserID_from = StudentWindow.LIBRARY_ID,
+                        UserID_from = 999,
                         UserID_to = ID,
                         Date_transaction = currentDate,
                         Date_penalty = selectedDate 
@@ -115,15 +114,10 @@ namespace LibraryManagementSystem.View
                     context.SubmitChanges();
 
 
-                    var lastTransaction = context.Transactions
-                        .Where(t => t.BookID == selectedBookID && t.UserID_from == ID && t.UserID_to == ID)
-                        .OrderByDescending(t => t.Date_transaction)
-                        .FirstOrDefault();
-
                     var newBooksOwned = new BooksOwned
                     {
                         UserID = ID,
-                        TransactionID = lastTransaction.TransactionID,
+                        TransactionID = newTransaction.TransactionID,
                         BookID = selectedBookID
                     };
 
