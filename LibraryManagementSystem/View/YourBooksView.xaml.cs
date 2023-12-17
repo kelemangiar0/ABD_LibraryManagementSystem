@@ -81,7 +81,7 @@ namespace LibraryManagementSystem.View
             selectComboBox.Visibility = Visibility.Visible;
             selectText.Visibility = Visibility.Visible;
             cancelBorrowTo.Visibility = Visibility.Visible;
-            //    confirmBorrowTo.Visibility = Visibility.Visible; idee: sa fie afisat butonul de confirmare doar dupa selectia unui util.
+            // confirmBorrowTo.Visibility = Visibility.Visible; idee: sa fie afisat butonul de confirmare doar dupa selectia unui util.
 
 
         }
@@ -105,7 +105,11 @@ namespace LibraryManagementSystem.View
                     context.Transactions.InsertOnSubmit(returnTransaction);
                     context.SubmitChanges();
 
-                    var returnedBook = context.BooksOwneds
+                    var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
+                    bookToUpdate.Stock += 1;
+                    context.SubmitChanges();
+
+                var returnedBook = context.BooksOwneds
                         .Where(b => b.UserID == ID && b.BookID == selectedBookID)
                         .FirstOrDefault();
 

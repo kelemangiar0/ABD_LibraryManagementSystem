@@ -29,8 +29,10 @@ namespace LibraryManagementSystem.ViewModel
             using (var context = new UncensoredLibraryDataContext())
             {
                 var query = from book in context.Books
+                            where book.Stock!=0
                             select new
                             {
+                                Stock = book.Stock,
                                 BookID = book.BookID,
                                 MinAge = book.MinAge,
                                 Name = book.Name,
@@ -42,6 +44,7 @@ namespace LibraryManagementSystem.ViewModel
                 {
                     AvailableBooksModel result = new AvailableBooksModel
                     {
+                       Stock = it.Stock ?? 0,
                        BookID = it.BookID,
                        MinAge = it.MinAge,
                        Author = it.Author,

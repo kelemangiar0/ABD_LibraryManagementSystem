@@ -47,7 +47,9 @@ namespace LibraryManagementSystem.View
         {
             //todo check if one row is selected
             //todo confirm prompt
-       //     confirmBorrow.Visibility = Visibility.Visible;
+            //     confirmBorrow.Visibility = Visibility.Visible;
+
+
             cancelBorrow.Visibility = Visibility.Visible;
             borrowButton.Visibility = Visibility.Collapsed;
             dataGrid.Visibility = Visibility.Collapsed;
@@ -90,8 +92,11 @@ namespace LibraryManagementSystem.View
 
         private void confirmBorrow_Click(object sender, RoutedEventArgs e)
         {
+       
+
             int selectedBookID = ((AvailableBooksModel)dataGrid.SelectedItem).BookID;
             int ID = findUserID(StudentWindow.username) ?? 0;
+            
             
 
             DateTime selectedDate = calendar.SelectedDate ?? DateTime.MinValue;
@@ -103,6 +108,7 @@ namespace LibraryManagementSystem.View
                 {
                     var newTransaction = new Transaction
                     {
+                        
                         BookID = selectedBookID,
                         UserID_from = 999,
                         UserID_to = ID,
@@ -111,6 +117,10 @@ namespace LibraryManagementSystem.View
                     };
 
                     context.Transactions.InsertOnSubmit(newTransaction);
+                    context.SubmitChanges();
+
+                    var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
+                    bookToUpdate.Stock -= 1;
                     context.SubmitChanges();
 
 

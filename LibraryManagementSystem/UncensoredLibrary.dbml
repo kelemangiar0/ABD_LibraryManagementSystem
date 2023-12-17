@@ -10,18 +10,6 @@
       <Association Name="User_Account" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Books" Member="Books">
-    <Type Name="Book">
-      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MinAge" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Author" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Category" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
-      <Association Name="Book_BooksOwned" Member="BooksOwneds" ThisKey="BookID" OtherKey="BookID" Type="BooksOwned" />
-      <Association Name="Book_Transaction" Member="Transactions" ThisKey="BookID" OtherKey="BookID" Type="Transaction" />
-    </Type>
-  </Table>
   <Table Name="dbo.Users" Member="Users">
     <Type Name="User">
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -44,9 +32,9 @@
       <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TransactionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Book_BooksOwned" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
       <Association Name="User_BooksOwned" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
       <Association Name="Transaction_BooksOwned" Member="Transaction" ThisKey="TransactionID" OtherKey="TransactionID" Type="Transaction" IsForeignKey="true" />
+      <Association Name="Book_BooksOwned" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Transactions" Member="Transactions">
@@ -58,9 +46,22 @@
       <Column Name="Date_transaction" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="Date_penalty" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="Transaction_BooksOwned" Member="BooksOwneds" ThisKey="TransactionID" OtherKey="TransactionID" Type="BooksOwned" />
-      <Association Name="Book_Transaction" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
       <Association Name="User_Transaction" Member="User" ThisKey="UserID_from" OtherKey="UserID" Type="User" IsForeignKey="true" />
       <Association Name="User_Transaction1" Member="User1" ThisKey="UserID_to" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="Book_Transaction" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Books">
+    <Type Name="Book">
+      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MinAge" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Author" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Stock" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Book_BooksOwned" Member="BooksOwneds" ThisKey="BookID" OtherKey="BookID" Type="BooksOwned" />
+      <Association Name="Book_Transaction" Member="Transactions" ThisKey="BookID" OtherKey="BookID" Type="Transaction" />
     </Type>
   </Table>
 </Database>
