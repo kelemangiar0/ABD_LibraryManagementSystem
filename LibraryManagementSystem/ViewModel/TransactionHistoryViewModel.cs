@@ -14,7 +14,7 @@ namespace LibraryManagementSystem.ViewModel
     {
 
         private ObservableCollection<TransactionsModel> _transactions;
-
+        private ObservableCollection<TransactionsModel> allTransactions;
         public ObservableCollection<TransactionsModel> Transactions
         {
             get { return _transactions; }
@@ -97,7 +97,27 @@ namespace LibraryManagementSystem.ViewModel
             }
 
             Transactions = new ObservableCollection<TransactionsModel>(transactionModels);
+            allTransactions = new ObservableCollection<TransactionsModel>(transactionModels);
         }
-        
-}
+
+        // functie ce sterge intrarile ce nu contin filtrul pus
+        public void ApplyFilter(string filter)
+        {
+            Transactions = allTransactions;
+            if (string.IsNullOrEmpty(filter))
+            {
+                Transactions = _transactions;
+                return;
+            }
+            var filteredTransactions = _transactions.Where(t =>
+                t.Bookname.Contains(filter) ||
+                t.Username_from.Contains(filter) ||
+                t.Username_to.Contains(filter) ||
+                t.Date_transaction.ToString().Contains(filter) ||
+                t.Date_penalty.ToString().Contains(filter)
+            ).ToList(); 
+
+            Transactions = new ObservableCollection<TransactionsModel>(filteredTransactions);
+        }
+    }
 }

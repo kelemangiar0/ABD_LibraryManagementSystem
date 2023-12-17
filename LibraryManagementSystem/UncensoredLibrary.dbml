@@ -18,20 +18,8 @@
       <Column Name="Author" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Category" Type="System.String" DbType="NVarChar(64)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
+      <Association Name="Book_BooksOwned" Member="BooksOwneds" ThisKey="BookID" OtherKey="BookID" Type="BooksOwned" />
       <Association Name="Book_Transaction" Member="Transactions" ThisKey="BookID" OtherKey="BookID" Type="Transaction" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Transactions" Member="Transactions">
-    <Type Name="Transaction">
-      <Column Name="TransactionID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="BookID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UserID_from" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UserID_to" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Date_transaction" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="Date_penalty" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Association Name="Book_Transaction" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
-      <Association Name="User_Transaction" Member="User" ThisKey="UserID_from" OtherKey="UserID" Type="User" IsForeignKey="true" />
-      <Association Name="User_Transaction1" Member="User1" ThisKey="UserID_to" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -45,8 +33,34 @@
       <Column Name="LastBookDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="ProfilePicture" Type="System.String" DbType="NChar(128)" CanBeNull="true" />
       <Association Name="User_Account" Member="Accounts" ThisKey="UserID" OtherKey="UserID" Type="Account" />
+      <Association Name="User_BooksOwned" Member="BooksOwneds" ThisKey="UserID" OtherKey="UserID" Type="BooksOwned" />
       <Association Name="User_Transaction" Member="Transactions" ThisKey="UserID" OtherKey="UserID_from" Type="Transaction" />
       <Association Name="User_Transaction1" Member="Transactions1" ThisKey="UserID" OtherKey="UserID_to" Type="Transaction" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BooksOwned" Member="BooksOwneds">
+    <Type Name="BooksOwned">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Book_BooksOwned" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+      <Association Name="User_BooksOwned" Member="User" ThisKey="UserID" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="Transaction_BooksOwned" Member="Transaction" ThisKey="TransactionID" OtherKey="TransactionID" Type="Transaction" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Transactions" Member="Transactions">
+    <Type Name="Transaction">
+      <Column Name="TransactionID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BookID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID_from" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID_to" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date_transaction" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Date_penalty" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="Transaction_BooksOwned" Member="BooksOwneds" ThisKey="TransactionID" OtherKey="TransactionID" Type="BooksOwned" />
+      <Association Name="Book_Transaction" Member="Book" ThisKey="BookID" OtherKey="BookID" Type="Book" IsForeignKey="true" />
+      <Association Name="User_Transaction" Member="User" ThisKey="UserID_from" OtherKey="UserID" Type="User" IsForeignKey="true" />
+      <Association Name="User_Transaction1" Member="User1" ThisKey="UserID_to" OtherKey="UserID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

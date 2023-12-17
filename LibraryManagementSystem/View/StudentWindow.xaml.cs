@@ -22,6 +22,7 @@ namespace LibraryManagementSystem.View
     {
 
         public static string username;
+        public static int LIBRARY_ID = 999;
         public StudentWindow(string username)
         {
             InitializeComponent();

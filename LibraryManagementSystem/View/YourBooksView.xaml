@@ -19,7 +19,7 @@
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
-        <DataGrid x:Name="dataGrid" Style="{StaticResource TransactionsDataGrid1}" ItemsSource="{Binding Books}">
+        <DataGrid x:Name="dataGrid" Style="{StaticResource TransactionsDataGrid1}" ItemsSource="{Binding Books}" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding BookID}" Width="35"/>
                 <DataGridTextColumn Header="Min Age" Binding="{Binding MinAge}" Width="*"/>

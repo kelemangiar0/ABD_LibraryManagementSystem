@@ -1,4 +1,5 @@
 ﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,49 +24,41 @@ namespace LibraryManagementSystem.ViewModel
             }
         }
 
+        int? findUserID(string username)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from accounts in context.Accounts
+                            where accounts.Username == username
+                            select accounts.UserID;
+                return query.SingleOrDefault();
+            }
+
+        }
+
         public YourBooksViewModel()
         {
-            // Initialize the Books collection with two dummy books
-            Books = new ObservableCollection<YourBooksModel>
+            List<YourBooksModel> booksOwnedModels = new List<YourBooksModel>();
+            int userID = findUserID(StudentWindow.username) ?? 0;
+            using (var context = new UncensoredLibraryDataContext())
             {
-                new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
-                 new YourBooksModel { BookID = 1, MinAge = 12, Name = "Book 1", Author = "Author 1", Category = "Fiction", Description = "Description 1" },
-                new YourBooksModel { BookID = 2, MinAge = 15, Name = "Book 2", Author = "Author 2", Category = "Science", Description = "Description 2" },
-                // Add more data as needed
+                var query = from booksOwned in context.BooksOwneds
+                            where booksOwned.UserID == userID
+                            join book in context.Books on booksOwned.BookID equals book.BookID
+                            select new YourBooksModel
+                            {
+                                BookID = book.BookID,
+                                MinAge = book.MinAge,
+                                Name = book.Name,
+                                Author = book.Author,
+                                Category = book.Category,
+                                Description = book.Description
+                            };
 
-                // Add more data as needed
-            };
+                booksOwnedModels = query.ToList();
+            }
+
+            Books = new ObservableCollection<YourBooksModel>(booksOwnedModels);
         }
     }
  }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,13 +31,24 @@ namespace LibraryManagementSystem.View
             fromDate.Visibility = Visibility.Collapsed;
             toDate.Visibility = Visibility.Collapsed;
             bookTitle.Visibility = Visibility.Collapsed;
+
+
+
+            calendar.SelectedDatesChanged += (sender, e) =>
+            {
+
+                fromDate.Content = $"From: {DateTime.Now.ToShortDateString()}";
+                DateTime selectedDate = calendar.SelectedDate ?? DateTime.Now;
+                toDate.Content = $"To: {selectedDate.ToShortDateString()}";
+                confirmBorrow.Visibility = Visibility.Visible;
+            };
         }
 
         private void borrowButton_Click(object sender, RoutedEventArgs e)
         {
             //todo check if one row is selected
             //todo confirm prompt
-            confirmBorrow.Visibility = Visibility.Visible;
+       //     confirmBorrow.Visibility = Visibility.Visible;
             cancelBorrow.Visibility = Visibility.Visible;
             borrowButton.Visibility = Visibility.Collapsed;
             dataGrid.Visibility = Visibility.Collapsed;
@@ -43,6 +56,11 @@ namespace LibraryManagementSystem.View
             fromDate.Visibility = Visibility.Visible;
             toDate.Visibility = Visibility.Visible;
             bookTitle.Visibility = Visibility.Visible;
+
+
+
+            string selectedBookName = ((AvailableBooksModel)dataGrid.SelectedItem).Name;
+            bookTitle.Content = $"Book: {selectedBookName}";
         }
 
         private void cancelBorrow_Click(object sender, RoutedEventArgs e)
@@ -57,9 +75,68 @@ namespace LibraryManagementSystem.View
             bookTitle.Visibility = Visibility.Collapsed;
         }
 
+
+        int? findUserID(string username)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from accounts in context.Accounts
+                            where accounts.Username == username
+                            select accounts.UserID;
+                return query.SingleOrDefault();
+            }
+
+        }
+
+
         private void confirmBorrow_Click(object sender, RoutedEventArgs e)
         {
-            //todo
+            int selectedBookID = ((AvailableBooksModel)dataGrid.SelectedItem).BookID;
+            int ID = findUserID(StudentWindow.username) ?? 0;
+            
+
+            DateTime selectedDate = calendar.SelectedDate ?? DateTime.MinValue;
+            DateTime currentDate = DateTime.Now;
+
+            if (selectedDate > currentDate)
+            {
+                using (var context = new UncensoredLibraryDataContext())
+                {
+                    var newTransaction = new Transaction
+                    {
+                        BookID = selectedBookID,
+                        UserID_from = StudentWindow.LIBRARY_ID,
+                        UserID_to = ID,
+                        Date_transaction = currentDate,
+                        Date_penalty = selectedDate 
+                    };
+
+                    context.Transactions.InsertOnSubmit(newTransaction);
+                    context.SubmitChanges();
+
+
+                    var lastTransaction = context.Transactions
+                        .Where(t => t.BookID == selectedBookID && t.UserID_from == ID && t.UserID_to == ID)
+                        .OrderByDescending(t => t.Date_transaction)
+                        .FirstOrDefault();
+
+                    var newBooksOwned = new BooksOwned
+                    {
+                        UserID = ID,
+                        TransactionID = lastTransaction.TransactionID,
+                        BookID = selectedBookID
+                    };
+
+                    context.BooksOwneds.InsertOnSubmit(newBooksOwned);
+                    context.SubmitChanges();
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Selectează o dată validă în viitor.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

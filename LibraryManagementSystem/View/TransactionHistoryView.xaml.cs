@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +33,15 @@ namespace LibraryManagementSystem.View
             //ia din textbox si filtreaza pe baza la ala
             //daca nu exista nu afiseaza nimic pur si simplu
             //filterBox.Text
-            this.Visibility = Visibility.Collapsed;
+
+            // this.Visibility = Visibility.Collapsed;
+            string filterText = this.filterBox.Text;
+            (DataContext as TransactionHistoryViewModel)?.ApplyFilter(filterText);
+
+
         }
+
+
+            
     }
 }

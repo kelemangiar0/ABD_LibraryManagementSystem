@@ -25,40 +25,34 @@ namespace LibraryManagementSystem.ViewModel
         public AvailableBooksViewModel()
         {
             // Initialize the Books collection with two dummy books
-            Books = new ObservableCollection<AvailableBooksModel>
+            List<AvailableBooksModel> localBooks = new List<AvailableBooksModel>();
+            using (var context = new UncensoredLibraryDataContext())
             {
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-                new AvailableBooksModel { BookID = 1, MinAge = 12, Name = "Book 3", Author = "Author 3", Category = "Fiction", Description = "Description 1" },
-                new AvailableBooksModel { BookID = 2, MinAge = 15, Name = "Book 4", Author = "Author 4 ", Category = "Science", Description = "Description 2" },
-
-
-                // Add more data as needed
-            };
+                var query = from book in context.Books
+                            select new
+                            {
+                                BookID = book.BookID,
+                                MinAge = book.MinAge,
+                                Name = book.Name,
+                                Author = book.Author,
+                                Category = book.Category,
+                                Description = book.Description
+                            };
+                foreach (var it in query)
+                {
+                    AvailableBooksModel result = new AvailableBooksModel
+                    {
+                       BookID = it.BookID,
+                       MinAge = it.MinAge,
+                       Author = it.Author,
+                       Category = it.Category,
+                       Description = it.Description,
+                       Name = it.Name
+                    };
+                    localBooks.Add(result);
+                }
+            }
+            Books = new ObservableCollection<AvailableBooksModel>(localBooks);
         }
     }
 }
