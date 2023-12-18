@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ namespace LibraryManagementSystem.View
     /// </summary>
     public partial class YourBooksView : UserControl
     {
+  
         public YourBooksView()
         {
             InitializeComponent();
@@ -44,7 +46,7 @@ namespace LibraryManagementSystem.View
                 try
                 {
                     var usernames = context.Accounts
-                      .Where(account => account.Username != StudentWindow.username)
+                      .Where(account => account.Username != StudentWindow.username && account.Username != "Library")
                       .Select(account => account.Username)
                       .ToList();
 
@@ -120,6 +122,10 @@ namespace LibraryManagementSystem.View
                     }
 
                     MessageBox.Show("Book returned successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //todo 
+                (DataContext as YourBooksViewModel)?.RefreshBooks();
+
             }
         }
 
@@ -188,6 +194,10 @@ namespace LibraryManagementSystem.View
                     context.SubmitChanges();
                 }
             }
+
+
+             //todo
+             (DataContext as YourBooksViewModel)?.RefreshBooks();
 
         }
 

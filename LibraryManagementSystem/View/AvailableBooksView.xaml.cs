@@ -1,6 +1,9 @@
 ﻿using LibraryManagementSystem.Model;
+using LibraryManagementSystem.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +24,13 @@ namespace LibraryManagementSystem.View
     /// </summary>
     public partial class AvailableBooksView : UserControl
     {
+     
+
         public AvailableBooksView()
         {
+
             InitializeComponent();
+
             calendar.Visibility = Visibility.Collapsed;
             confirmBorrow.Visibility = Visibility.Collapsed;
             cancelBorrow.Visibility = Visibility.Collapsed;
@@ -31,11 +38,8 @@ namespace LibraryManagementSystem.View
             toDate.Visibility = Visibility.Collapsed;
             bookTitle.Visibility = Visibility.Collapsed;
 
-
-
             calendar.SelectedDatesChanged += (sender, e) =>
             {
-
                 fromDate.Content = $"From: {DateTime.Now.ToShortDateString()}";
                 DateTime selectedDate = calendar.SelectedDate ?? DateTime.Now;
                 toDate.Content = $"To: {selectedDate.ToShortDateString()}";
@@ -49,7 +53,6 @@ namespace LibraryManagementSystem.View
             //todo confirm prompt
             //     confirmBorrow.Visibility = Visibility.Visible;
 
-
             cancelBorrow.Visibility = Visibility.Visible;
             borrowButton.Visibility = Visibility.Collapsed;
             dataGrid.Visibility = Visibility.Collapsed;
@@ -57,8 +60,6 @@ namespace LibraryManagementSystem.View
             fromDate.Visibility = Visibility.Visible;
             toDate.Visibility = Visibility.Visible;
             bookTitle.Visibility = Visibility.Visible;
-
-
 
             string selectedBookName = ((AvailableBooksModel)dataGrid.SelectedItem).Name;
             bookTitle.Content = $"Book: {selectedBookName}";
@@ -76,7 +77,6 @@ namespace LibraryManagementSystem.View
             bookTitle.Visibility = Visibility.Collapsed;
         }
 
-
         int? findUserID(string username)
         {
             using (var context = new UncensoredLibraryDataContext())
@@ -86,18 +86,14 @@ namespace LibraryManagementSystem.View
                             select accounts.UserID;
                 return query.SingleOrDefault();
             }
-
         }
-
 
         private void confirmBorrow_Click(object sender, RoutedEventArgs e)
         {
-       
-
             int selectedBookID = ((AvailableBooksModel)dataGrid.SelectedItem).BookID;
             int ID = findUserID(StudentWindow.username) ?? 0;
-            
-            
+
+
 
             DateTime selectedDate = calendar.SelectedDate ?? DateTime.MinValue;
             DateTime currentDate = DateTime.Now;
@@ -108,12 +104,11 @@ namespace LibraryManagementSystem.View
                 {
                     var newTransaction = new Transaction
                     {
-                        
                         BookID = selectedBookID,
                         UserID_from = 999,
                         UserID_to = ID,
                         Date_transaction = currentDate,
-                        Date_penalty = selectedDate 
+                        Date_penalty = selectedDate
                     };
 
                     context.Transactions.InsertOnSubmit(newTransaction);
@@ -122,7 +117,6 @@ namespace LibraryManagementSystem.View
                     var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
                     bookToUpdate.Stock -= 1;
                     context.SubmitChanges();
-
 
                     var newBooksOwned = new BooksOwned
                     {
@@ -133,9 +127,18 @@ namespace LibraryManagementSystem.View
 
                     context.BooksOwneds.InsertOnSubmit(newBooksOwned);
                     context.SubmitChanges();
-
                 }
 
+                (DataContext as AvailableBooksViewModel)?.Refresh();
+
+                confirmBorrow.Visibility = Visibility.Collapsed;
+                cancelBorrow.Visibility = Visibility.Collapsed;
+                borrowButton.Visibility = Visibility.Visible;
+                dataGrid.Visibility = Visibility.Visible;
+                calendar.Visibility = Visibility.Collapsed;
+                fromDate.Visibility = Visibility.Collapsed;
+                toDate.Visibility = Visibility.Collapsed;
+                bookTitle.Visibility = Visibility.Collapsed;
             }
             else
             {

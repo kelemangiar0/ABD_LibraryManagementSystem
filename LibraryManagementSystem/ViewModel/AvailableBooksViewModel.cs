@@ -24,12 +24,16 @@ namespace LibraryManagementSystem.ViewModel
 
         public AvailableBooksViewModel()
         {
-            // Initialize the Books collection with two dummy books
+            Refresh();
+        }
+
+        public void Refresh()
+        {
             List<AvailableBooksModel> localBooks = new List<AvailableBooksModel>();
             using (var context = new UncensoredLibraryDataContext())
             {
                 var query = from book in context.Books
-                            where book.Stock!=0
+                            where book.Stock != 0
                             select new
                             {
                                 Stock = book.Stock,
@@ -44,13 +48,13 @@ namespace LibraryManagementSystem.ViewModel
                 {
                     AvailableBooksModel result = new AvailableBooksModel
                     {
-                       Stock = it.Stock ?? 0,
-                       BookID = it.BookID,
-                       MinAge = it.MinAge,
-                       Author = it.Author,
-                       Category = it.Category,
-                       Description = it.Description,
-                       Name = it.Name
+                        Stock = it.Stock ?? 0,
+                        BookID = it.BookID,
+                        MinAge = it.MinAge,
+                        Author = it.Author,
+                        Category = it.Category,
+                        Description = it.Description,
+                        Name = it.Name
                     };
                     localBooks.Add(result);
                 }

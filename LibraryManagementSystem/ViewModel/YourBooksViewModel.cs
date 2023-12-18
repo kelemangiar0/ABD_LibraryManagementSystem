@@ -24,19 +24,7 @@ namespace LibraryManagementSystem.ViewModel
             }
         }
 
-        int? findUserID(string username)
-        {
-            using (var context = new UncensoredLibraryDataContext())
-            {
-                var query = from accounts in context.Accounts
-                            where accounts.Username == username
-                            select accounts.UserID;
-                return query.SingleOrDefault();
-            }
-
-        }
-
-        public YourBooksViewModel()
+        public void RefreshBooks()
         {
             List<YourBooksModel> booksOwnedModels = new List<YourBooksModel>();
             int userID = findUserID(StudentWindow.username) ?? 0;
@@ -59,6 +47,23 @@ namespace LibraryManagementSystem.ViewModel
             }
 
             Books = new ObservableCollection<YourBooksModel>(booksOwnedModels);
+        }
+
+        int? findUserID(string username)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from accounts in context.Accounts
+                            where accounts.Username == username
+                            select accounts.UserID;
+                return query.SingleOrDefault();
+            }
+
+        }
+
+        public YourBooksViewModel()
+        {
+            RefreshBooks();
         }
     }
  }
