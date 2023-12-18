@@ -37,13 +37,17 @@ namespace LibraryManagementSystem.View
             fromDate.Visibility = Visibility.Collapsed;
             toDate.Visibility = Visibility.Collapsed;
             bookTitle.Visibility = Visibility.Collapsed;
-
+            borrowButton.Visibility = Visibility.Collapsed;
             calendar.SelectedDatesChanged += (sender, e) =>
             {
                 fromDate.Content = $"From: {DateTime.Now.ToShortDateString()}";
                 DateTime selectedDate = calendar.SelectedDate ?? DateTime.Now;
                 toDate.Content = $"To: {selectedDate.ToShortDateString()}";
                 confirmBorrow.Visibility = Visibility.Visible;
+            };
+            dataGrid.SelectedCellsChanged += (sender, e) =>
+            {
+                borrowButton.Visibility = Visibility.Visible;
             };
         }
 
@@ -69,7 +73,7 @@ namespace LibraryManagementSystem.View
         {
             confirmBorrow.Visibility = Visibility.Collapsed;
             cancelBorrow.Visibility = Visibility.Collapsed;
-            borrowButton.Visibility = Visibility.Visible;
+            borrowButton.Visibility = Visibility.Collapsed;
             dataGrid.Visibility = Visibility.Visible;
             calendar.Visibility = Visibility.Collapsed;
             fromDate.Visibility = Visibility.Collapsed;
@@ -133,12 +137,13 @@ namespace LibraryManagementSystem.View
 
                 confirmBorrow.Visibility = Visibility.Collapsed;
                 cancelBorrow.Visibility = Visibility.Collapsed;
-                borrowButton.Visibility = Visibility.Visible;
+                borrowButton.Visibility = Visibility.Collapsed;
                 dataGrid.Visibility = Visibility.Visible;
                 calendar.Visibility = Visibility.Collapsed;
                 fromDate.Visibility = Visibility.Collapsed;
                 toDate.Visibility = Visibility.Collapsed;
                 bookTitle.Visibility = Visibility.Collapsed;
+
             }
             else
             {

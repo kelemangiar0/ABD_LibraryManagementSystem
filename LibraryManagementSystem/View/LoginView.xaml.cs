@@ -40,6 +40,35 @@ namespace LibraryManagementSystem.View
             }
         }
 
+
+        int? findUserID(string username)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from accounts in context.Accounts
+                            where accounts.Username == username
+                            select accounts.UserID;
+                return query.SingleOrDefault();
+            }
+        }
+        int verifyAccountType(int id) // 0 - user, 1 - librarian
+
+        { 
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from users in context.Users
+                            where users.UserID == id
+                            select users.Role;
+
+                string role = query.SingleOrDefault();
+                if (role == "User")
+                {
+                    return 0; 
+                }
+                return 1; // librar
+
+            }
+        }
         private void butonLogin_Click(object sender, RoutedEventArgs e)
         {
             string username = loginUsername.Text;
@@ -47,11 +76,23 @@ namespace LibraryManagementSystem.View
 
             if (PassedLogin(username, password))
             {
-                StudentWindow studentWindow = new StudentWindow(username);
-                studentWindow.Show();
-                var myWindow = Window.GetWindow(this);
-                myWindow.Close();
+                int id = findUserID(username) ?? 0;
+                if (verifyAccountType(id) == 0)
+                {
+                    StudentWindow studentWindow = new StudentWindow(username);
+                    studentWindow.Show();
+                    var myWindow = Window.GetWindow(this);
+                    myWindow.Close();
+                }
+                else
+                {
+                    LibrarianWindow librarianWindow = new LibrarianWindow();
+                    librarianWindow.Show();
+                    var myWindow = Window.GetWindow(this);
+                    myWindow.Close();
+                }
             }
+
             else
             {
                 MessageBox.Show("Eroare la autentificare!");

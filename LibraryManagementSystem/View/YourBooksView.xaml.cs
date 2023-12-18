@@ -39,6 +39,8 @@ namespace LibraryManagementSystem.View
             addItemsToComboBox();
         }
 
+
+
         private void addItemsToComboBox()
         {
             using (var context = new UncensoredLibraryDataContext())
@@ -46,9 +48,12 @@ namespace LibraryManagementSystem.View
                 try
                 {
                     var usernames = context.Accounts
-                      .Where(account => account.Username != StudentWindow.username && account.Username != "Library")
-                      .Select(account => account.Username)
-                      .ToList();
+                              .Where(account =>
+                                  account.Username != StudentWindow.username &&
+                                  account.Username != "Library" &&
+                                  !context.Users.Any(user => user.UserID == account.UserID && user.Role == "Librarian"))
+                              .Select(account => account.Username)
+                              .ToList();
 
                     foreach (var username in usernames)
                     {
@@ -69,6 +74,8 @@ namespace LibraryManagementSystem.View
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
                             select accounts.UserID;
+
+            
                 return query.SingleOrDefault();
             }
 
@@ -194,8 +201,16 @@ namespace LibraryManagementSystem.View
 
 
              //todo
-             (DataContext as YourBooksViewModel)?.RefreshBooks();
+            (DataContext as YourBooksViewModel)?.RefreshBooks();
+            cancelBorrowTo.Visibility = Visibility.Collapsed;
+            
+            dataGrid.Visibility = Visibility.Visible;
+            confirmBorrowTo.Visibility = Visibility.Collapsed;
+            selectComboBox.Visibility = Visibility.Collapsed;
+            selectText.Visibility = Visibility.Collapsed;
 
+            borrowToButton.Visibility = Visibility.Collapsed;
+            returnBookButton.Visibility = Visibility.Collapsed;
         }
 
         private void userSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
