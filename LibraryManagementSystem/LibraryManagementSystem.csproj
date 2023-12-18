@@ -68,13 +68,18 @@
     <Compile Include="ViewModel\AccountOverviewViewModel.cs" />
     <Compile Include="ViewModel\AccountStatisticsViewModel.cs" />
     <Compile Include="ViewModel\AccountsViewModel.cs" />
+    <Compile Include="ViewModel\AddBooksViewModel.cs" />
+    <Compile Include="ViewModel\AllStockViewModel.cs" />
     <Compile Include="ViewModel\AvailableBooksViewModel.cs" />
     <Compile Include="AESCrypt.cs" />
     <Compile Include="ViewModel\LibrarianViewModel.cs" />
+    <Compile Include="ViewModel\LibraryStatisticsViewModel.cs" />
     <Compile Include="ViewModel\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModel\LoginRegisterWindowViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\LogoutViewModel.cs" />
+    <Compile Include="ViewModel\ManageAccountsViewModel.cs" />
+    <Compile Include="ViewModel\ModifyStockViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
     <Compile Include="ViewModel\StudentViewModel.cs" />
     <Compile Include="ViewModel\TransactionHistoryViewModel.cs" />
@@ -87,11 +92,20 @@
     <Compile Include="View\AccountStatisticsView.xaml.cs">
       <DependentUpon>AccountStatisticsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddBooksView.xaml.cs">
+      <DependentUpon>AddBooksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AllStock.xaml.cs">
+      <DependentUpon>AllStock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AvailableBooksView.xaml.cs">
       <DependentUpon>AvailableBooksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LibrarianWindow.xaml.cs">
       <DependentUpon>LibrarianWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LibraryStatisticsView.xaml.cs">
+      <DependentUpon>LibraryStatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginRegisterView.xaml.cs">
       <DependentUpon>LoginRegisterView.xaml</DependentUpon>
@@ -101,6 +115,12 @@
     </Compile>
     <Compile Include="View\LogoutView.xaml.cs">
       <DependentUpon>LogoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManageAccountsView.xaml.cs">
+      <DependentUpon>ManageAccountsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ModifyStockView.xaml.cs">
+      <DependentUpon>ModifyStockView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
@@ -130,11 +150,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AddBooksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AllStock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AvailableBooksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LibrarianWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LibraryStatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,6 +198,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LogoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ManageAccountsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ModifyStockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

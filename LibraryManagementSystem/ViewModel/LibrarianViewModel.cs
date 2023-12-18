@@ -34,13 +34,12 @@ namespace LibraryManagementSystem.ViewModel
             ShowLibraryStatisticsViewCommand = new ViewModelCommand(ExecuteShowLibraryStatisticsViewCommand);
             ShowLogoutViewCommand = new ViewModelCommand(ExecuteShowLogoutViewCommand);
 
-            //to change
-            ExecuteShowLogoutViewCommand(null);
+            ExecuteShowAllStockViewCommand(null);
         }
 
         private void ExecuteShowLibraryStatisticsViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            CurrentChildView = new LibraryStatisticsViewModel();
         }
 
         private void ExecuteShowLogoutViewCommand(object obj)
@@ -50,22 +49,22 @@ namespace LibraryManagementSystem.ViewModel
 
         private void ExecuteShowManageAccountsViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            CurrentChildView = new ManageAccountsViewModel();
         }
 
         private void ExecuteShowAddBooksViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            CurrentChildView = new AddBooksViewModel();
         }
 
         private void ExecuteShowModifyStockViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            CurrentChildView = new ModifyStockViewModel();
         }
 
         private void ExecuteShowAllStockViewCommand(object obj)
         {
-            throw new NotImplementedException();
+            CurrentChildView = new AllStockViewModel();
         }
     }
 }

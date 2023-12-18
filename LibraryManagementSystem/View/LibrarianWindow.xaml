@@ -23,28 +23,28 @@
 
     <Window.Resources>
 
-        <DataTemplate DataType="{x:Type viewModel:YourBooksViewModel}">
-            <view:YourBooksView/>
+        <DataTemplate DataType="{x:Type viewModel:AllStockViewModel}">
+            <view:AllStock/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:AvailableBooksViewModel}">
-            <view:AvailableBooksView/>
+        <DataTemplate DataType="{x:Type viewModel:ModifyStockViewModel}">
+            <view:ModifyStockView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:TransactionHistoryViewModel}">
-            <view:TransactionHistoryView/>
+        <DataTemplate DataType="{x:Type viewModel:AddBooksViewModel}">
+            <view:AddBooksView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:AccountOverviewViewModel}">
-            <view:AccountOverviewView/>
+        <DataTemplate DataType="{x:Type viewModel:ManageAccountsViewModel}">
+            <view:ManageAccountsView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModel:LogoutViewModel}">
             <view:LogoutView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:AccountStatisticsViewModel}">
-            <view:AccountStatisticsView/>
+        <DataTemplate DataType="{x:Type viewModel:LibraryStatisticsViewModel}">
+            <view:LibraryStatisticsView/>
         </DataTemplate>
 
     </Window.Resources>
@@ -125,7 +125,7 @@
                  Command="{Binding ShowAllStockViewCommand}"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
-                 >
+                 IsChecked="True">
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
@@ -162,8 +162,7 @@
                 Grid.Column="7"
                 Content="Logout"
                  Command="{Binding ShowLogoutViewCommand}"
-                HorizontalAlignment="Center"
-                                 IsChecked="True">
+                HorizontalAlignment="Center">
                     </RadioButton>
 
                 </Grid>
