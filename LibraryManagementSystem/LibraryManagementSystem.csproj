@@ -70,6 +70,7 @@
     <Compile Include="ViewModel\AccountsViewModel.cs" />
     <Compile Include="ViewModel\AvailableBooksViewModel.cs" />
     <Compile Include="AESCrypt.cs" />
+    <Compile Include="ViewModel\LibrarianViewModel.cs" />
     <Compile Include="ViewModel\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModel\LoginRegisterWindowViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />

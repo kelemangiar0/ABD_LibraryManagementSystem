@@ -27,13 +27,14 @@
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
                 <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
                 <DataGridTextColumn Header="Min Age" Binding="{Binding MinAge}" Width="*"/>
+                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="*"/>
             </DataGrid.Columns>
 
         </DataGrid>
         <Calendar x:Name="calendar" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,57,0,0"/>
-        <Label x:Name="bookTitle" FontSize="20" Content="Book :" HorizontalAlignment="Center" Margin="-150,247,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="fromDate" FontSize="20" Content="From :" HorizontalAlignment="Center" Margin="-150,284,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="toDate" FontSize="20" Content="To: " HorizontalAlignment="Center" Margin="-150,321,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="#FF4D3916" x:Name="bookTitle" FontWeight="Bold" FontSize="20" Content="Book :" HorizontalAlignment="Center" Margin="0,247,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="#FF4D3916" x:Name="fromDate" FontWeight="Bold" FontSize="20" Content="From :" HorizontalAlignment="Center" Margin="0,284,0,0" VerticalAlignment="Top"/>
+        <Label Foreground="#FF4D3916" x:Name="toDate" FontWeight="Bold" FontSize="20" Content="To: " HorizontalAlignment="Center" Margin="0,321,0,0" VerticalAlignment="Top"/>
         <Grid Grid.Row="1 ">
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="*" />

@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryManagementSystem.View"
+                xmlns:viewModel="clr-namespace:LibraryManagementSystem.ViewModel"
+        xmlns:view="clr-namespace:LibraryManagementSystem.View"
         mc:Ignorable="d"
         Title="LibrarianWindow" Height="720" Width="1280"
         WindowStyle="None"
@@ -11,6 +13,41 @@
         MouseDown="Window_MouseDown"
         Background="Transparent"
         AllowsTransparency="True">
+
+    <Window.DataContext>
+        <viewModel:LibrarianViewModel/>
+    </Window.DataContext>
+
+
+
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type viewModel:YourBooksViewModel}">
+            <view:YourBooksView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:AvailableBooksViewModel}">
+            <view:AvailableBooksView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:TransactionHistoryViewModel}">
+            <view:TransactionHistoryView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:AccountOverviewViewModel}">
+            <view:AccountOverviewView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:LogoutViewModel}">
+            <view:LogoutView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:AccountStatisticsViewModel}">
+            <view:AccountStatisticsView/>
+        </DataTemplate>
+
+    </Window.Resources>
 
     <Border CornerRadius="15">
         <Border.Background>
@@ -35,15 +72,13 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
+
                 </Grid.RowDefinitions>
 
-
-
-
-
-
-                <Grid>
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="50"/>
@@ -69,16 +104,75 @@
                     <Label Content="Librarian Florin" Grid.Column="0" Grid.Row="0" FontSize="30" FontWeight="Bold" Foreground="DarkMagenta" Margin="60,0,0,0"/>
                 </Grid>
 
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50"/>
 
+                    </Grid.ColumnDefinitions>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+                 Grid.Column="2"
+                 Content="Show all stock"
+                 Command="{Binding ShowAllStockViewCommand}"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 >
+                    </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+                 Grid.Column="3"
+                 Content="Modify stock"
+                 Command="{Binding ShowModifyStockViewCommand}"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center">
+                    </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+                 Grid.Column="4"
+                 Content="Add books"
+                 Command="{Binding ShowAddBooksViewCommand}"
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Center">
+                    </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+                 Grid.Column="5"
+                 Content="Manage accounts"
+                 Command="{Binding ShowManageAccountsViewCommand}"
+                 HorizontalAlignment="Center">
+                    </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+                 Grid.Column="6"
+                 Content="Library statistics"
+                 Command="{Binding ShowLibraryStatisticsViewCommand}"
+                 HorizontalAlignment="Center">
+                    </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}"
+                Grid.Column="7"
+                Content="Logout"
+                 Command="{Binding ShowLogoutViewCommand}"
+                HorizontalAlignment="Center"
+                                 IsChecked="True">
+                    </RadioButton>
 
+                </Grid>
 
-
+                <StackPanel Grid.Row="3" Margin="50,0,50,50">
+                    <ContentControl Content="{Binding CurrentChildView}"
+                    Grid.Row="1"
+                    Opacity="1"/>
+                </StackPanel>
             </Grid>
         </Border>
     </Border>
