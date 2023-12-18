@@ -76,16 +76,13 @@ namespace LibraryManagementSystem.View
 
         private void borrowToButton_Click(object sender, RoutedEventArgs e)
         {
-            //todo check if one row is selected
             dataGrid.Visibility = Visibility.Collapsed;
             borrowToButton.Visibility = Visibility.Collapsed;
             returnBookButton.Visibility = Visibility.Collapsed;
             selectComboBox.Visibility = Visibility.Visible;
+
             selectText.Visibility = Visibility.Visible;
             cancelBorrowTo.Visibility = Visibility.Visible;
-            // confirmBorrowTo.Visibility = Visibility.Visible; idee: sa fie afisat butonul de confirmare doar dupa selectia unui util.
-
-
         }
 
         private void returnBookButton_Click(object sender, RoutedEventArgs e)

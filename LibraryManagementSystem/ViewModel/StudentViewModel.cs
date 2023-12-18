@@ -17,6 +17,7 @@ namespace LibraryManagementSystem.ViewModel
         public ICommand ShowAccountOverviewViewCommand { get; }
         public ICommand ShowTransactionHistoryViewCommand { get; }
         public ICommand ShowLogoutViewCommand { get; }
+        public ICommand ShowStatisticsViewCommand { get; }
         public ViewModelBase CurrentChildView
         {
             get { return _currentChildView; }
@@ -30,8 +31,14 @@ namespace LibraryManagementSystem.ViewModel
             ShowTransactionHistoryViewCommand = new ViewModelCommand(ExecuteShowTransactionHistoryViewCommand);
             ShowAccountOverviewViewCommand = new ViewModelCommand(ExecuteShowAccountOverviewViewCommand);
             ShowLogoutViewCommand = new ViewModelCommand(ExecuteShowLogoutViewCommand);
+            ShowStatisticsViewCommand = new ViewModelCommand(ExecuteShowStatisticsViewCommand);
             //default view       
             ExecuteShowYourBooksViewCommand(null);
+        }
+
+        private void ExecuteShowStatisticsViewCommand(object obj)
+        {
+            CurrentChildView = new AccountStatisticsViewModel();
         }
 
         private void ExecuteShowAccountOverviewViewCommand(object obj)

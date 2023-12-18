@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="LibraryManagementSystem.View.AccountStatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LibraryManagementSystem.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Label Content="Statistics" FontSize="30" FontWeight="Bold" Margin="0,20,0,0" HorizontalAlignment="Center" Foreground="#FF4D3916"/>
+        <Label Content="Total Books borrowed: " FontSize="20" FontWeight="Bold" Margin="50,100,0,0" Foreground="#FF4D3916"/>
+        <Label Content="Current Books Borrowed: " FontSize="20" FontWeight="Bold" Margin="50,200,0,0" Foreground="#FF4D3916"/>
+        <Label Content="First Book Borrowed On: " FontSize="20" FontWeight="Bold" Margin="50,300,0,0" Foreground="#FF4D3916"/>
+        <Label Content="Last Book Borrowed On: " FontSize="20" FontWeight="Bold" Margin="50,400,0,0" Foreground="#FF4D3916"/>
+        
+    </Grid>
+</UserControl>

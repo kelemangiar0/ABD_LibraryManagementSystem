@@ -7,10 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button Click="butonLoginMain_Click" x:Name="butonLoginMain" Style="{StaticResource bigButton}" Content="Logout" Margin="0,337,0,0" VerticalAlignment="Top">
+        <Label Foreground="#FF4D3916" FontSize="15" FontWeight="Bold" Content="Press the button if you really want to log out, ignore it if you just checked this page" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top"/>
+        <Button Click="butonLoginMain_Click" x:Name="butonLoginMain" Style="{StaticResource bigButton}" Content="Logout" Margin="0,318,0,0" VerticalAlignment="Top">
             <Button.Tag>
                 <SolidColorBrush Color="Beige" />
             </Button.Tag>
         </Button>
+
     </Grid>
 </UserControl>

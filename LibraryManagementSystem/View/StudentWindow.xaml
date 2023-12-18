@@ -43,6 +43,10 @@
             <view:LogoutView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:AccountStatisticsViewModel}">
+            <view:AccountStatisticsView/>
+        </DataTemplate>
+
     </Window.Resources>
 
     <Border CornerRadius="15">
@@ -157,7 +161,8 @@
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Grid.Column="6"
-                                 Content=" "
+                                 Content="Account Statistics"
+                                 Command="{Binding ShowStatisticsViewCommand}"
                                  HorizontalAlignment="Center">
                     </RadioButton>
 

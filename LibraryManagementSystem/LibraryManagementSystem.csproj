@@ -66,6 +66,7 @@
       <DependentUpon>UncensoredLibrary.dbml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AccountOverviewViewModel.cs" />
+    <Compile Include="ViewModel\AccountStatisticsViewModel.cs" />
     <Compile Include="ViewModel\AccountsViewModel.cs" />
     <Compile Include="ViewModel\AvailableBooksViewModel.cs" />
     <Compile Include="AESCrypt.cs" />
@@ -81,6 +82,9 @@
     <Compile Include="ViewModel\YourBooksViewModel.cs" />
     <Compile Include="View\AccountOverviewView.xaml.cs">
       <DependentUpon>AccountOverviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AccountStatisticsView.xaml.cs">
+      <DependentUpon>AccountStatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AvailableBooksView.xaml.cs">
       <DependentUpon>AvailableBooksView.xaml</DependentUpon>
@@ -118,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AccountOverviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AccountStatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +239,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ProfilePicture.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

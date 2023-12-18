@@ -24,7 +24,6 @@
                 <DataGridTextColumn Header="From User" Binding="{Binding Username_from}" Width="*"/>
                 <DataGridTextColumn Header="To User" Binding="{Binding Username_to}" Width="*"/>
                 <DataGridTextColumn Header="Transaction Date" Binding="{Binding Date_transaction}" Width="*"/>
-                <DataGridTextColumn Header="Penalty Date" Binding="{Binding Date_penalty}" Width="*"/>
             </DataGrid.Columns>
             <!--
             <DataGrid.ContextMenu>

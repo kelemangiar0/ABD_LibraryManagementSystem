@@ -22,11 +22,13 @@
         <DataGrid x:Name="dataGrid" Style="{StaticResource TransactionsDataGrid1}" ItemsSource="{Binding Books}" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding BookID}" Width="35"/>
-                <DataGridTextColumn Header="Min Age" Binding="{Binding MinAge}" Width="*"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                
+                <DataGridTextColumn Header="Title" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="*"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Header="Min Age" Binding="{Binding MinAge}" Width="*"/>
+                
             </DataGrid.Columns>
         </DataGrid>
 
