@@ -7,11 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="Statistics" FontSize="30" FontWeight="Bold" Margin="0,20,0,0" HorizontalAlignment="Center" Foreground="#FF4D3916"/>
-        <Label Content="Total Books borrowed: " FontSize="20" FontWeight="Bold" Margin="50,100,0,0" Foreground="#FF4D3916"/>
-        <Label Content="Current Books Borrowed: " FontSize="20" FontWeight="Bold" Margin="50,200,0,0" Foreground="#FF4D3916"/>
-        <Label Content="First Book Borrowed On: " FontSize="20" FontWeight="Bold" Margin="50,300,0,0" Foreground="#FF4D3916"/>
-        <Label Content="Last Book Borrowed On: " FontSize="20" FontWeight="Bold" Margin="50,400,0,0" Foreground="#FF4D3916"/>
+        <Label  x:Name="statisticsLabel" Content="Statistics" FontSize="30" FontWeight="Bold" Margin="0,20,0,0" HorizontalAlignment="Center" Foreground="#FF4D3916"/>
+        <Label  x:Name="totalLabel" Content="Total Books borrowed: " FontSize="20" FontWeight="Bold" Margin="50,100,0,0" Foreground="#FF4D3916"/>
+        <Label  x:Name="currentLabel" Content="Current Books Borrowed: " FontSize="20" FontWeight="Bold" Margin="50,200,0,0" Foreground="#FF4D3916"/>
+        <Label  x:Name="firstLabel" Content="First Book Borrowed On: " FontSize="20" FontWeight="Bold" Margin="50,300,0,0" Foreground="#FF4D3916"/>
+        <Label  x:Name="lastLabel" Content="Last Book Borrowed On: " FontSize="20" FontWeight="Bold" Margin="50,400,0,0" Foreground="#FF4D3916"/>
         
     </Grid>
 </UserControl>

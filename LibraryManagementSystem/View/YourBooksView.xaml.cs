@@ -23,7 +23,6 @@ namespace LibraryManagementSystem.View
     /// </summary>
     public partial class YourBooksView : UserControl
     {
-  
         public YourBooksView()
         {
             InitializeComponent();

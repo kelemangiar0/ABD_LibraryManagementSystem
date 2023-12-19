@@ -44,6 +44,7 @@ namespace LibraryManagementSystem.ViewModel
                             };
 
                 booksOwnedModels = query.ToList();
+              
             }
 
             Books = new ObservableCollection<YourBooksModel>(booksOwnedModels);

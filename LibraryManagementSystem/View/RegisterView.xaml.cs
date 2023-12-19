@@ -30,7 +30,7 @@ namespace LibraryManagementSystem.View
         {
             InitializeComponent();
         }
-
+        public static string key = "b14ca5898a4e4133bbce2ea2315a1916";
         private bool TestUserExistence(string username, string email, UncensoredLibraryDataContext dbContext)
         {
             return dbContext.Accounts.Any(u => u.Username == username || u.Email == email);
@@ -46,8 +46,8 @@ namespace LibraryManagementSystem.View
             dbContext.SubmitChanges();
 
 
-            string key = "b14ca5898a4e4133bbce2ea2315a1916";
-            password = AESCrypt.EncryptString(key, password);
+            
+            password = AESCrypt.EncryptString(RegisterView.key, password);
 
             var newAccount = new Account
             {
