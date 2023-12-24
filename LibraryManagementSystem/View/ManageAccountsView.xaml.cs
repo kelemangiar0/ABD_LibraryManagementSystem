@@ -24,5 +24,25 @@ namespace LibraryManagementSystem.View
         {
             InitializeComponent();
         }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void deleteAccount_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void returnAllBooks_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void toggleRole_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

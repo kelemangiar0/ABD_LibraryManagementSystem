@@ -4,9 +4,75 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagementSystem.View"
+             xmlns:viewModel="clr-namespace:LibraryManagementSystem.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:AllStockViewModel/>
+    </UserControl.DataContext>
+
     <Grid>
-        <Image Source="./../Images/Icon.png"/>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="450"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Style="{StaticResource TransactionsDataGrid}"  ItemsSource="{Binding Books}" Grid.Row="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Binding="{Binding BookID }" Width="35"/>
+                <DataGridTextColumn Header="Book Title" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
+                <DataGridTextColumn Header="Minimum Age" Binding="{Binding MinAge}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="70"/>
+            </DataGrid.Columns>
+            <!--
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.Style>
+                        <Style TargetType="ContextMenu">
+                            <Setter Property="Foreground" Value="Blue" />
+                        </Style>
+                    </ContextMenu.Style>
+                    <MenuItem x:Name="Borrow" Header="Borrow" Foreground="Red">
+                        <MenuItem.Icon>
+                            <Image Source="./../Images/Search.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="Details" Header="Details" Foreground="Red">
+                        <MenuItem.Icon>
+                            <Image Source="./../Images/Icon.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        -->
+        </DataGrid>
+
+        <Grid Grid.Row="1 ">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Margin="40,40,0,0" Text="Filter: " FontSize="34" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox  Grid.Column="1" Margin="-20,40,0,0" x:Name="filterBox" Width="300" Height="40" Style="{StaticResource filterTextBox}"/>
+            <Button Click="filterButton_Click" Grid.Column="2" Margin="-20,40,0,0" x:Name="filterButton" Style="{StaticResource filterButton}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button.Content>
+                    <Image Source="./../Images/Search.png"/>
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
     </Grid>
+
+
+
+
+
+
+
 </UserControl>

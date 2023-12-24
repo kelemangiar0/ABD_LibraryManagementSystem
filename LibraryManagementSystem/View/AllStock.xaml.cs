@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagementSystem.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,19 @@ namespace LibraryManagementSystem.View
         public AllStock()
         {
             InitializeComponent();
+        }
+
+        private void filterButton_Click(object sender, RoutedEventArgs e)
+        {
+            //ia din textbox si filtreaza pe baza la ala
+            //daca nu exista nu afiseaza nimic pur si simplu
+            //filterBox.Text
+
+            // this.Visibility = Visibility.Collapsed;
+            string filterText = this.filterBox.Text;
+            (DataContext as AllStockViewModel)?.ApplyFilter(filterText);
+
+
         }
     }
 }

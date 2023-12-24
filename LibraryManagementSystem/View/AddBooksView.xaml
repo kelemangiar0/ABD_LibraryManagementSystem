@@ -5,8 +5,78 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryManagementSystem.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="590" d:DesignWidth="800">
     <Grid>
-        <Image Source="./../Images/YourBooks.png"/>
+        <StackPanel Width="800" Margin="0,25,0,0">
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  Margin="72,70,0,0" Grid.Column="0" Text="Title" FontSize="15" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF4D3916" />
+                <TextBlock  Margin="72,70,0,0" Grid.Column="1" Text="Author" FontSize="15" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF4D3916"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox HorizontalAlignment="Center" FontSize="20" Grid.Column="0" x:Name="title" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
+                <TextBox  HorizontalAlignment="Center" FontSize="20" Grid.Column="1" x:Name="author" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  Margin="72,70,0,0" Grid.Column="0" Text="Category" FontSize="15" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF4D3916" />
+                <TextBlock  Margin="72,70,0,0" Grid.Column="1" Text="Description" FontSize="15" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF4D3916"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox HorizontalAlignment="Center" FontSize="20" Grid.Column="0" x:Name="category" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
+                <TextBox  HorizontalAlignment="Center" FontSize="20" Grid.Column="1" x:Name="description" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  Margin="72,70,0,0" Grid.Column="0" Text="Minimum Age" FontSize="15" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF4D3916" />
+                <TextBlock  Margin="72,70,0,0" Grid.Column="1" Text="Stock" FontSize="15" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF4D3916"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox HorizontalAlignment="Center" FontSize="20" Grid.Column="0" x:Name="minimumAge" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
+                <TextBox  HorizontalAlignment="Center" FontSize="20" Grid.Column="1" x:Name="stock" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
+            </Grid>
+
+            <Button x:Name="butonRegister" Style="{StaticResource bigButton}" VerticalAlignment="Center" Content="Add Book" Grid.Column="2" Margin="0,70,0,0">
+                <Button.Tag>
+                    <SolidColorBrush Color="Beige" />
+                </Button.Tag>
+            </Button>
+
+
+        </StackPanel>
     </Grid>
 </UserControl>
