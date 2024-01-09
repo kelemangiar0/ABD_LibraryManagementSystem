@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementSystem.Model
 {
-    // TransactionsModel.cs
     public class TransactionsModel
     {
         public int TransactionID { get; set; }

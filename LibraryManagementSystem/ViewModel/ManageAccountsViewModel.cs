@@ -34,6 +34,7 @@ namespace LibraryManagementSystem.ViewModel
             {
                 var query = from accounts in context.Accounts
                             join users in context.Users on accounts.UserID equals users.UserID
+                            join booksOwned in context.BooksOwneds on accounts.UserID equals booksOwned.UserID into booksOwnedGroup
                             select new AccountsModel
                             {
                                 AccountID = accounts.AccountID,
@@ -41,18 +42,48 @@ namespace LibraryManagementSystem.ViewModel
                                 Username = accounts.Username,
                                 Password = accounts.Password, // Be cautious with password data
                                 Email = accounts.Email,
+                                BooksOwned = booksOwnedGroup.Count(),
                                 Role = users.Role // Assigning the Role from the Users table
                             };
 
                 foreach (var account in query)
                 {
-                    accountsList.Add(account);
+                    if (account.UserID != StudentWindow.LIBRARY_ID)
+                        accountsList.Add(account);
                 }
             }
 
             Accounts = new ObservableCollection<AccountsModel>(accountsList);
         }
+        public void RefreshData()
+        {
+            List<AccountsModel> accountsList = new List<AccountsModel>();
 
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from accounts in context.Accounts
+                            join users in context.Users on accounts.UserID equals users.UserID
+                            join booksOwned in context.BooksOwneds on accounts.UserID equals booksOwned.UserID into booksOwnedGroup
+                            select new AccountsModel
+                            {
+                                AccountID = accounts.AccountID,
+                                UserID = accounts.UserID ?? 0,
+                                Username = accounts.Username,
+                                Password = accounts.Password, // Be cautious with password data
+                                Email = accounts.Email,
+                                BooksOwned = booksOwnedGroup.Count(),
+                                Role = users.Role // Assigning the Role from the Users table
+                            };
+
+                foreach (var account in query)
+                {
+                    if (account.UserID != StudentWindow.LIBRARY_ID)
+                        accountsList.Add(account);
+                }
+            }
+
+            Accounts = new ObservableCollection<AccountsModel>(accountsList);
+        }
         // ... additional functions as needed
     }
 }

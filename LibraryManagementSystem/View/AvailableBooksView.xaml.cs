@@ -19,9 +19,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for AvailableBooksView.xaml
-    /// </summary>
     public partial class AvailableBooksView : UserControl
     {
      
@@ -50,13 +47,21 @@ namespace LibraryManagementSystem.View
                 borrowButton.Visibility = Visibility.Visible;
             };
         }
+        private int getMyAge()
+        {
+            int userID = findUserID(StudentWindow.username) ?? 0;
 
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var ageQuery = from users in context.Users
+                               where users.UserID == userID
+                               select users.Age;
+
+                return ageQuery.SingleOrDefault() ?? 0;
+            }
+        }
         private void borrowButton_Click(object sender, RoutedEventArgs e)
         {
-            //todo check if one row is selected
-            //todo confirm prompt
-            //     confirmBorrow.Visibility = Visibility.Visible;
-
             cancelBorrow.Visibility = Visibility.Visible;
             borrowButton.Visibility = Visibility.Collapsed;
             dataGrid.Visibility = Visibility.Collapsed;
@@ -65,8 +70,21 @@ namespace LibraryManagementSystem.View
             toDate.Visibility = Visibility.Visible;
             bookTitle.Visibility = Visibility.Visible;
 
-            string selectedBookName = ((AvailableBooksModel)dataGrid.SelectedItem).Name;
-            bookTitle.Content = $"Book: {selectedBookName}";
+            AvailableBooksModel selectedBook = (AvailableBooksModel)dataGrid.SelectedItem;
+            string selectedBookName = selectedBook.Name;
+            int selectedBookMinAge = selectedBook.MinAge ?? 0;
+
+
+            if (selectedBookMinAge > getMyAge())
+            {
+    
+                MessageBox.Show("You are not old enough to borrow this book.");
+                cancelBorrow_Click(sender, e); // TO BE TESTED WITHOUT THIS SHIT
+            }
+            else
+            {
+                bookTitle.Content = $"Book: {selectedBookName}";
+            }
         }
 
         private void cancelBorrow_Click(object sender, RoutedEventArgs e)
@@ -147,7 +165,7 @@ namespace LibraryManagementSystem.View
             }
             else
             {
-                MessageBox.Show("Selectează o dată validă în viitor.", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please, select a valid date in the future.");
             }
         }
     }

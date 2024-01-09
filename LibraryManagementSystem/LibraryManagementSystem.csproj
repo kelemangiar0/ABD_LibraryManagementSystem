@@ -65,6 +65,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UncensoredLibrary.dbml</DependentUpon>
     </Compile>
+    <Compile Include="UncensoredLibraryDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UncensoredLibraryDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\AccountOverviewViewModel.cs" />
     <Compile Include="ViewModel\AccountStatisticsViewModel.cs" />
     <Compile Include="ViewModel\AccountsViewModel.cs" />
@@ -255,6 +260,17 @@
     </None>
     <None Include="UncensoredLibrary.dbml.layout">
       <DependentUpon>UncensoredLibrary.dbml</DependentUpon>
+    </None>
+    <None Include="UncensoredLibraryDataSet.xsc">
+      <DependentUpon>UncensoredLibraryDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="UncensoredLibraryDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>UncensoredLibraryDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="UncensoredLibraryDataSet.xss">
+      <DependentUpon>UncensoredLibraryDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

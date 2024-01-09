@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for AccountStatisticsView.xaml
-    /// </summary>
     public partial class AccountStatisticsView : UserControl
     {
         public AccountStatisticsView()

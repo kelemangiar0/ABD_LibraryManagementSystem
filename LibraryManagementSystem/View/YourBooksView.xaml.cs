@@ -18,20 +18,17 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for YourBooksView.xaml
-    /// </summary>
     public partial class YourBooksView : UserControl
     {
         public YourBooksView()
         {
             InitializeComponent();
-            
+
             cancelBorrowTo.Visibility = Visibility.Collapsed;
             confirmBorrowTo.Visibility = Visibility.Collapsed;
             selectComboBox.Visibility = Visibility.Collapsed;
             selectText.Visibility = Visibility.Collapsed;
-           
+
             borrowToButton.Visibility = Visibility.Collapsed;
             returnBookButton.Visibility = Visibility.Collapsed;
 
@@ -61,7 +58,7 @@ namespace LibraryManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Eroare la preluarea datelor din baza de date: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error retrieving data from the database: {ex.Message}");
                 }
             }
         }
@@ -74,7 +71,7 @@ namespace LibraryManagementSystem.View
                             where accounts.Username == username
                             select accounts.UserID;
 
-            
+
                 return query.SingleOrDefault();
             }
 
@@ -98,35 +95,34 @@ namespace LibraryManagementSystem.View
 
             using (var context = new UncensoredLibraryDataContext())
             {
-                    var returnTransaction = new Transaction
-                    {
-                        BookID = selectedBookID,
-                        UserID_from = ID,
-                        UserID_to = StudentWindow.LIBRARY_ID,
-                        Date_transaction = DateTime.Now,
-                        Date_penalty = null
-                    };
+                var returnTransaction = new Transaction
+                {
+                    BookID = selectedBookID,
+                    UserID_from = ID,
+                    UserID_to = StudentWindow.LIBRARY_ID,
+                    Date_transaction = DateTime.Now,
+                    Date_penalty = null
+                };
 
-                    context.Transactions.InsertOnSubmit(returnTransaction);
-                    context.SubmitChanges();
+                context.Transactions.InsertOnSubmit(returnTransaction);
+                context.SubmitChanges();
 
-                    var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
-                    bookToUpdate.Stock += 1;
-                    context.SubmitChanges();
+                var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
+                bookToUpdate.Stock += 1;
+                context.SubmitChanges();
 
                 var returnedBook = context.BooksOwneds
                         .Where(b => b.UserID == ID && b.BookID == selectedBookID)
                         .FirstOrDefault();
 
-                    if (returnedBook != null)
-                    {
-                        context.BooksOwneds.DeleteOnSubmit(returnedBook);
-                        context.SubmitChanges();
-                    }
+                if (returnedBook != null)
+                {
+                    context.BooksOwneds.DeleteOnSubmit(returnedBook);
+                    context.SubmitChanges();
+                }
 
-                    MessageBox.Show("Book returned successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Book returned successfully.");
 
-                //todo 
                 (DataContext as YourBooksViewModel)?.RefreshBooks();
 
             }
@@ -142,7 +138,6 @@ namespace LibraryManagementSystem.View
             cancelBorrowTo.Visibility = Visibility.Collapsed;
             confirmBorrowTo.Visibility = Visibility.Collapsed;
         }
-
         private void confirmBorrowTo_Click(object sender, RoutedEventArgs e)
         {
             //procedeu imprumut:
@@ -152,64 +147,95 @@ namespace LibraryManagementSystem.View
             //inseram in tabela cu carti detinute intrarea pentru utilizatorul selectat
             //stergem din tabela cu carti deitnute intrarea pentru utilizatorul curent (ne dispare cartea pe care am imprumutat-o, logic)
 
-            // functioneaza pentru cazuri normale
             int idFrom = findUserID(StudentWindow.username) ?? 0;
             int idTo = findUserID(this.selectComboBox.Text) ?? 0;
             int bookID = ((YourBooksModel)dataGrid.SelectedItem).BookID;
 
-            using (var context = new UncensoredLibraryDataContext())
+
+            int minAgeRequired = getMinAge(bookID);
+            int ageTo = getAge(idTo);
+
+            if (ageTo < minAgeRequired)
             {
-                var lastTransaction = context.Transactions
-                                    .Where(t => t.BookID == bookID)
-                                    .OrderByDescending(t => t.Date_transaction)
-                                    .FirstOrDefault();
+                MessageBox.Show("The selected user is not of the right age to borrow this book.");
+                return;
+            }
 
-             
-                 DateTime datePenalty = lastTransaction.Date_penalty ?? DateTime.Now ;
+                using (var context = new UncensoredLibraryDataContext())
+                {
+                    var lastTransaction = context.Transactions
+                                        .Where(t => t.BookID == bookID)
+                                        .OrderByDescending(t => t.Date_transaction)
+                                        .FirstOrDefault();
 
-                 var newTransaction = new Transaction
-                 {
+                    DateTime datePenalty = lastTransaction.Date_penalty ?? DateTime.Now;
+
+                    var newTransaction = new Transaction
+                    {
                         BookID = bookID,
                         UserID_from = idFrom,
                         UserID_to = idTo,
                         Date_transaction = DateTime.Now,
-                        Date_penalty = datePenalty 
-                 };
-                 context.Transactions.InsertOnSubmit(newTransaction);
-                 context.SubmitChanges();
-
-                var newBooksOwned = new BooksOwned
-                {
-                    UserID = idTo, 
-                    TransactionID = newTransaction.TransactionID, 
-                    BookID = bookID 
-                };
-                context.BooksOwneds.InsertOnSubmit(newBooksOwned);
-                context.SubmitChanges();
-
-
-                var oldBooksOwned = context.BooksOwneds
-                                    .Where(bo => bo.UserID == idFrom && bo.BookID == bookID)
-                                    .FirstOrDefault();
-                if (oldBooksOwned != null)
-                {
-                    context.BooksOwneds.DeleteOnSubmit(oldBooksOwned);
+                        Date_penalty = datePenalty
+                    };
+                    context.Transactions.InsertOnSubmit(newTransaction);
                     context.SubmitChanges();
+
+                    var newBooksOwned = new BooksOwned
+                    {
+                        UserID = idTo,
+                        TransactionID = newTransaction.TransactionID,
+                        BookID = bookID
+                    };
+                    context.BooksOwneds.InsertOnSubmit(newBooksOwned);
+                    context.SubmitChanges();
+
+                    var oldBooksOwned = context.BooksOwneds
+                                        .Where(bo => bo.UserID == idFrom && bo.BookID == bookID)
+                                        .FirstOrDefault();
+                    if (oldBooksOwned != null)
+                    {
+                        context.BooksOwneds.DeleteOnSubmit(oldBooksOwned);
+                        context.SubmitChanges();
+                    }
                 }
-            }
 
+                (DataContext as YourBooksViewModel)?.RefreshBooks();
+                cancelBorrowTo.Visibility = Visibility.Collapsed;
 
-             //todo
-            (DataContext as YourBooksViewModel)?.RefreshBooks();
-            cancelBorrowTo.Visibility = Visibility.Collapsed;
+                dataGrid.Visibility = Visibility.Visible;
+                confirmBorrowTo.Visibility = Visibility.Collapsed;
+                selectComboBox.Visibility = Visibility.Collapsed;
+                selectText.Visibility = Visibility.Collapsed;
+
+                borrowToButton.Visibility = Visibility.Collapsed;
+                returnBookButton.Visibility = Visibility.Collapsed;
             
-            dataGrid.Visibility = Visibility.Visible;
-            confirmBorrowTo.Visibility = Visibility.Collapsed;
-            selectComboBox.Visibility = Visibility.Collapsed;
-            selectText.Visibility = Visibility.Collapsed;
+        }
 
-            borrowToButton.Visibility = Visibility.Collapsed;
-            returnBookButton.Visibility = Visibility.Collapsed;
+
+        private int getAge(int userID)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var ageQuery = from users in context.Users
+                               where users.UserID == userID
+                               select users.Age;
+
+                return ageQuery.SingleOrDefault() ?? 0;
+            }
+        }
+
+        private int getMinAge(int bookID)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var minAgeQuery = from books in context.Books
+                                  where books.BookID == bookID
+                                  select books.MinAge;
+
+                return minAgeQuery.SingleOrDefault() ?? 0;
+            }
         }
 
         private void userSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)

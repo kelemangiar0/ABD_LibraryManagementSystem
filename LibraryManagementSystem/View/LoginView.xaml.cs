@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using LibraryManagementSystem.Model;
 
+
+
 namespace LibraryManagementSystem.View
 {
     public partial class LoginView : UserControl
@@ -13,7 +15,7 @@ namespace LibraryManagementSystem.View
             InitializeComponent();
         }
 
-        private bool PassedLogin(string username, string password)
+        private bool PassedLogin(string username, string password, int userID)
         {
             using (var context = new UncensoredLibraryDataContext())
             {
@@ -24,10 +26,16 @@ namespace LibraryManagementSystem.View
                     if (user != null)
                     {
                         string storedPassword = user.Password;
+                        if(userID == StudentWindow.LIBRARY_ID) 
+                        {
+                            return password == storedPassword;
+                        }
+                      
                         string key = "b14ca5898a4e4133bbce2ea2315a1916";
                         string decryptedPassword = AESCrypt.DecryptString(key, storedPassword);
 
                         return decryptedPassword == password;
+                   
                     }
 
                     return false;
@@ -65,7 +73,7 @@ namespace LibraryManagementSystem.View
                 {
                     return 0; 
                 }
-                return 1; // librar
+                return 1; 
 
             }
         }
@@ -73,29 +81,44 @@ namespace LibraryManagementSystem.View
         {
             string username = loginUsername.Text;
             string password = loginPassword.Password;
-
-            if (PassedLogin(username, password))
+            int id = findUserID(username) ?? 0;
+            string role;
+            using (var context = new UncensoredLibraryDataContext())
             {
-                int id = findUserID(username) ?? 0;
-                if (verifyAccountType(id) == 0)
+                    var query = from users in context.Users
+                                where users.UserID == id
+                                select users.Role;
+
+                     role = query.SingleOrDefault();
+
+            }
+            
+
+            
+            if(PassedLogin(username, password, id) == true)
+            {
+                if (role == "User")
                 {
                     StudentWindow studentWindow = new StudentWindow(username);
                     studentWindow.Show();
                     var myWindow = Window.GetWindow(this);
                     myWindow.Close();
+
                 }
-                else
+                if(role == "Library")
                 {
                     LibrarianWindow librarianWindow = new LibrarianWindow();
                     librarianWindow.Show();
                     var myWindow = Window.GetWindow(this);
                     myWindow.Close();
+
                 }
+
             }
 
             else
             {
-                MessageBox.Show("Eroare la autentificare!");
+                MessageBox.Show("Error on authentication!");
             }
         }
     }

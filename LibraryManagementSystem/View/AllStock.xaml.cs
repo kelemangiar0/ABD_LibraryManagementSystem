@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for AllStock.xaml
-    /// </summary>
     public partial class AllStock : UserControl
     {
         public AllStock()
@@ -28,15 +25,8 @@ namespace LibraryManagementSystem.View
 
         private void filterButton_Click(object sender, RoutedEventArgs e)
         {
-            //ia din textbox si filtreaza pe baza la ala
-            //daca nu exista nu afiseaza nimic pur si simplu
-            //filterBox.Text
-
-            // this.Visibility = Visibility.Collapsed;
             string filterText = this.filterBox.Text;
             (DataContext as AllStockViewModel)?.ApplyFilter(filterText);
-
-
         }
     }
 }

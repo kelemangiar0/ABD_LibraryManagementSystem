@@ -23,7 +23,7 @@
                 <DataGridTextColumn Header="#" Binding="{Binding UserID}" Width="35"/>
 
                 <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
-                <DataGridTextColumn Header="Books in Possesion" Binding="{Binding UserID}" Width="*"/>
+                <DataGridTextColumn Header="Books in Possesion" Binding="{Binding BooksOwned}" Width="*"/>
                 <DataGridTextColumn Header="E-mail" Binding="{Binding Email}" Width="*"/>
                 <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
 

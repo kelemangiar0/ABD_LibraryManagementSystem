@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,8 @@ namespace LibraryManagementSystem.View
             confirmButton.Visibility = Visibility.Collapsed;
             writeStock.Visibility = Visibility.Collapsed;
             currentStockText.Visibility = Visibility.Collapsed;
+            selectComboBox.Items.Clear();
+            addItemsToComboBox();
         }
 
         void secondView() 
@@ -42,21 +45,84 @@ namespace LibraryManagementSystem.View
             writeStock.Visibility = Visibility.Visible;
             currentStockText.Visibility = Visibility.Visible;
         }
+
+        private void addItemsToComboBox()
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                try
+                {
+                    var booksInfo = context.Books
+                        .Select(books => $"{books.Name} (ID:{books.BookID}) by {books.Author}")
+                        .ToList();
+
+                    foreach (var info in booksInfo)
+                    {
+                        selectComboBox.Items.Add(info);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error retrieving data from the database: {ex.Message}");
+                }
+            }
+        }
+
         private void selectComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            secondView();
-            //pune in combobox : [<Titlu>, by <Autor>]
+            if (selectComboBox.SelectedItem != null)
+            {
+                secondView();
+                var selectedText = selectComboBox.SelectedItem.ToString();
+                int startIndex = selectedText.IndexOf("ID:") + "ID:".Length;
+                int endIndex = selectedText.IndexOf(")", startIndex);
+
+                string bookID = selectedText.Substring(startIndex, endIndex - startIndex);
+                int integerCastID = int.Parse(bookID);
+                using (var context = new UncensoredLibraryDataContext())
+                {
+                    var query = from books in context.Books
+                                where books.BookID == integerCastID
+                                select books.Stock;
+
+                    var queryResult = query.SingleOrDefault();
+
+                    string stockstring = "Current stock: ";
+
+                    currentStockText.Content = stockstring + queryResult;
+                }
+            }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             firstView();
-            //si deselecteaza din combobox optiunea selectata
+            writeStock.Text = string.Empty;
+
         }
 
         private void confirmButton_Click(object sender, RoutedEventArgs e)
         {
-            //doar modifica stock la valoarea din writeStock, nu adauga sau altceva
+            var selectedText = selectComboBox.SelectedItem.ToString();
+            int startIndex = selectedText.IndexOf("ID:") + "ID:".Length;
+            int endIndex = selectedText.IndexOf(")", startIndex);
+
+            string bookID = selectedText.Substring(startIndex, endIndex - startIndex);
+            int integerCastID = int.Parse(bookID);
+
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var bookToUpdate = context.Books.SingleOrDefault(book => book.BookID == integerCastID);
+                if (bookToUpdate != null)
+                {
+                    bookToUpdate.Stock = int.Parse(writeStock.Text);
+                    context.SubmitChanges();
+                }
+            }
+
+            firstView();
+            selectComboBox.SelectedItem = null;
+            writeStock.Clear();
         }
     }
 }

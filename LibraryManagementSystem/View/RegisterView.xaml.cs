@@ -14,16 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Windows;
-using System.Windows.Controls;
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for RegisterView.xaml
-    /// </summary>
     public partial class RegisterView : UserControl
     {
         public RegisterView()
@@ -60,7 +52,7 @@ namespace LibraryManagementSystem.View
             dbContext.Accounts.InsertOnSubmit(newAccount);
             dbContext.SubmitChanges();
 
-            MessageBox.Show($"Utilizator adăugat cu succes! Username: {username}");
+            MessageBox.Show($"User added succesfully! Username: {username}");
         }
 
         private void butonRegister_Click(object sender, RoutedEventArgs e)
@@ -72,7 +64,7 @@ namespace LibraryManagementSystem.View
 
             if (password != secondPassword)
             {
-                MessageBox.Show("Parolele nu sunt egale!");
+                MessageBox.Show("The passwords do not match!");
             }
             else
             {
@@ -83,16 +75,16 @@ namespace LibraryManagementSystem.View
                         if (!TestUserExistence(username, email, dbContext))
                         {
                             InsertUserAndAccount(username, password, email, dbContext);
-                            MessageBox.Show($"A fost introdus utilizatorul {username}!");
+                            MessageBox.Show($"New user introduced : {username}!");
                         }
                         else
                         {
-                            MessageBox.Show($"Datele acestui utilizator se află deja în aplicație!");
+                            MessageBox.Show($"This user's data is already in the app!");
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Eroare înregistrare (conexiune, bază de date, etc.): {ex.Message}");
+                        MessageBox.Show($"Registration error (connection, database, etc.):  {ex.Message}");
                     }
                 }
             }

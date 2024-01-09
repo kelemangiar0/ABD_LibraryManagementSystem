@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -13,16 +14,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO; 
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for AccountOverviewView.xaml
-    /// </summary>
     public partial class AccountOverviewView : UserControl
     {
 
+        private string ProfilePictureSource;
         private string selection;
+
+
         int? findUserID(string username)
         {
             using (var context = new UncensoredLibraryDataContext())
@@ -44,32 +46,46 @@ namespace LibraryManagementSystem.View
             {
                 var result = (from users in context.Users
                               join accounts in context.Accounts on users.UserID equals accounts.UserID
+                              where users.UserID == userID
                               select new
                               {
                                   Name = users.Name,
                                   Email = accounts.Email,
                                   Age = users.Age,
-                                  Password = accounts.Password
+                                  Password = accounts.Password,
+                                  ProfileImagePath = users.ProfilePicture 
                               }).FirstOrDefault();
-               string decryptedPassword = AESCrypt.DecryptString(RegisterView.key, result.Password);
-               int size = decryptedPassword.Length;
-               string starPassword = "";
-        
 
-                for (int i = 0; i<size; i++)
+                if (result != null)
                 {
-                    starPassword += "*";
+                    string decryptedPassword = AESCrypt.DecryptString(RegisterView.key, result.Password);
+                    int size = decryptedPassword.Length;
+                    string starPassword = new string('*', size);
+
+                    nameLabel.Content = $"Name: {result.Name}";
+                    ageLabel.Content = $"Age: {result.Age}";
+                    emailLabel.Content = $"Email: {result.Email}";
+                    passwordLabel.Content = $"Password: {starPassword}";
+
+                    LoadAndDisplayProfileImage(result.ProfileImagePath);
                 }
-
-                nameLabel.Content = $"Name: {result.Name}";
-                ageLabel.Content = $"Age: {result.Age}";
-                emailLabel.Content = $"Email: {result.Email}";
-                passwordLabel.Content = $"Password: {starPassword}";
+                
+                edit.Text = "";
             }
-            edit.Text = "";
+        }
 
+        void LoadAndDisplayProfileImage(string imagePath)
+        {
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                BitmapImage profileImage = new BitmapImage();
+                profileImage.BeginInit();
+                profileImage.UriSource = new Uri(imagePath);
+                profileImage.CacheOption = BitmapCacheOption.OnLoad;
+                profileImage.EndInit();
 
-
+                profilePicture.Source = profileImage;
+            }
         }
         public AccountOverviewView()
         {
@@ -140,7 +156,31 @@ namespace LibraryManagementSystem.View
 
         private void uploadPictureButton_Click(object sender, RoutedEventArgs e)
         {
-            //sa deschida file explorer?
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            openFileDialog.Title = "Select an image file";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ProfilePictureSource = openFileDialog.FileName;
+            
+                int userID = findUserID(StudentWindow.username) ?? 0;
+
+                using (var context = new UncensoredLibraryDataContext())
+                {
+                    try
+                    {
+                        var userToUpdate = context.Users.Single(u => u.UserID == userID);
+                        userToUpdate.ProfilePicture = ProfilePictureSource;
+                        context.SubmitChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error on updating data: {ex.Message}");
+                    }
+                }
+            }
+
         }
 
         void editName(string newName)
@@ -157,7 +197,7 @@ namespace LibraryManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Eroare la actualizarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error on updating data: {ex.Message}");
                 }
             }
         }
@@ -176,7 +216,7 @@ namespace LibraryManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Eroare la actualizarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error on updating data: {ex.Message}", "Eroare");
                 }
             }
         }
@@ -195,7 +235,7 @@ namespace LibraryManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Eroare la actualizarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error on updating data: {ex.Message}");
                 }
             }
         }
@@ -214,14 +254,13 @@ namespace LibraryManagementSystem.View
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Eroare la actualizarea datelor: {ex.Message}", "Eroare", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Error on updating data: {ex.Message}");
                 }
             }
         }
 
         private void confirmEdit_Click(object sender, RoutedEventArgs e)
         {
-            //vezi care dintre cele patru butoane sunt apasate? si in coloana respectiva sa intre modificarile
             firstView();
 
             string introducedValue = edit.Text;

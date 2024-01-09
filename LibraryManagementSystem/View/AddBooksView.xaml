@@ -70,7 +70,7 @@
                 <TextBox  HorizontalAlignment="Center" FontSize="20" Grid.Column="1" x:Name="stock" Width="250" Height="30" Style="{StaticResource initialTextbox}"/>
             </Grid>
 
-            <Button x:Name="butonRegister" Style="{StaticResource bigButton}" VerticalAlignment="Center" Content="Add Book" Grid.Column="2" Margin="0,70,0,0">
+            <Button x:Name="butonRegister" Style="{StaticResource bigButton}" VerticalAlignment="Center" Content="Add Book" Grid.Column="2" Margin="0,70,0,0" Click="butonRegister_Click">
                 <Button.Tag>
                     <SolidColorBrush Color="Beige" />
                 </Button.Tag>

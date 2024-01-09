@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for LoadingScreen.xaml
-    /// </summary>
     public partial class LoadingScreen : Window
     {
         static int loadingBar = 0;

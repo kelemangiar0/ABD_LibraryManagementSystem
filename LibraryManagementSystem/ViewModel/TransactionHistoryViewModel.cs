@@ -53,10 +53,7 @@ namespace LibraryManagementSystem.ViewModel
         }
         public TransactionHistoryViewModel()
         {
-            // Initialize and populate Transactions collection with data from the database
-            // For demonstration purposes, I'll add some sample data here. In a real scenario,
-            // you would fetch data from the database.
-            
+
             List<TransactionsModel> transactionModels = new List<TransactionsModel>();
 
             using (var context = new UncensoredLibraryDataContext())
@@ -100,7 +97,6 @@ namespace LibraryManagementSystem.ViewModel
             allTransactions = new ObservableCollection<TransactionsModel>(transactionModels);
         }
 
-        // functie ce sterge intrarile ce nu contin filtrul pus
         public void ApplyFilter(string filter)
         {
             Transactions = allTransactions;

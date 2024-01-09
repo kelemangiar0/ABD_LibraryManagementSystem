@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for TransactionHistoryView.xaml
-    /// </summary>
     public partial class TransactionHistoryView : UserControl
     {
         public TransactionHistoryView()
@@ -30,11 +27,6 @@ namespace LibraryManagementSystem.View
 
         private void filterButton_Click(object sender, RoutedEventArgs e)
         {
-            //ia din textbox si filtreaza pe baza la ala
-            //daca nu exista nu afiseaza nimic pur si simplu
-            //filterBox.Text
-
-            // this.Visibility = Visibility.Collapsed;
             string filterText = this.filterBox.Text;
             (DataContext as TransactionHistoryViewModel)?.ApplyFilter(filterText);
 

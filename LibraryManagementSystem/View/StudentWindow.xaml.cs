@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for StudentWindow.xaml
-    /// </summary>
     public partial class StudentWindow : Window
     {
 

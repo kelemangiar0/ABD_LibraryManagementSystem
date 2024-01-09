@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace LibraryManagementSystem.View
 {
-    /// <summary>
-    /// Interaction logic for LogoutView.xaml
-    /// </summary>
     public partial class LogoutView : UserControl
     {
         public LogoutView()
