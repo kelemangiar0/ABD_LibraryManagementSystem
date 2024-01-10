@@ -107,7 +107,7 @@ namespace LibraryManagementSystem.View
                 }
                 if(role == "Library")
                 {
-                    LibrarianWindow librarianWindow = new LibrarianWindow();
+                    LibrarianWindow librarianWindow = new LibrarianWindow(username);
                     librarianWindow.Show();
                     var myWindow = Window.GetWindow(this);
                     myWindow.Close();

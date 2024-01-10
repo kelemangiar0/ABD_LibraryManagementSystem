@@ -77,7 +77,7 @@ namespace LibraryManagementSystem.View
 
                 query = from users in context.Users
                             where users.UserID == userID
-                            select users.FirstBookDate;
+                            select users.LastBookDate;
                 var Lastdate = query.SingleOrDefault();
 
                 lastLabel.Content += $" {Lastdate?.ToShortDateString()}";

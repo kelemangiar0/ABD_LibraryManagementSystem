@@ -173,6 +173,7 @@ namespace LibraryManagementSystem.View
                         var userToUpdate = context.Users.Single(u => u.UserID == userID);
                         userToUpdate.ProfilePicture = ProfilePictureSource;
                         context.SubmitChanges();
+                        setDetailsOverview();
                     }
                     catch (Exception ex)
                     {

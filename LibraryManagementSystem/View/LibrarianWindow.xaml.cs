@@ -16,9 +16,12 @@ namespace LibraryManagementSystem.View
 {
     public partial class LibrarianWindow : Window
     {
-        public LibrarianWindow()
+        public static string username;
+
+        public LibrarianWindow(string username)
         {
             InitializeComponent();
+            LibrarianWindow.username = username;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

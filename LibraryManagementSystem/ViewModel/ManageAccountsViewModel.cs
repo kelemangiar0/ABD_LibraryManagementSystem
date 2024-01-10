@@ -12,7 +12,7 @@ namespace LibraryManagementSystem.ViewModel
 {
     public class ManageAccountsViewModel : ViewModelBase
     {
-        // ... existing properties and methods
+
         private ObservableCollection<AccountsModel> _accounts;
         public ObservableCollection<AccountsModel> Accounts
         {
@@ -26,6 +26,23 @@ namespace LibraryManagementSystem.ViewModel
                 }
             }
         }
+
+
+        int? findUserID(string username)
+        {
+            using (var context = new UncensoredLibraryDataContext())
+            {
+                var query = from accounts in context.Accounts
+                            where accounts.Username == username
+                            select accounts.UserID;
+
+
+                return query.SingleOrDefault();
+            }
+
+        }
+   
+
         public ManageAccountsViewModel()
         {
             List<AccountsModel> accountsList = new List<AccountsModel>();
@@ -40,15 +57,16 @@ namespace LibraryManagementSystem.ViewModel
                                 AccountID = accounts.AccountID,
                                 UserID = accounts.UserID ?? 0,
                                 Username = accounts.Username,
-                                Password = accounts.Password, // Be cautious with password data
+                                Password = accounts.Password,
                                 Email = accounts.Email,
                                 BooksOwned = booksOwnedGroup.Count(),
-                                Role = users.Role // Assigning the Role from the Users table
+                                Role = users.Role 
                             };
-
+                
+                var UserID = findUserID(LibrarianWindow.username);
                 foreach (var account in query)
                 {
-                    if (account.UserID != StudentWindow.LIBRARY_ID)
+                    if ((account.UserID != StudentWindow.LIBRARY_ID) && (UserID != account.UserID))
                         accountsList.Add(account);
                 }
             }
@@ -69,21 +87,22 @@ namespace LibraryManagementSystem.ViewModel
                                 AccountID = accounts.AccountID,
                                 UserID = accounts.UserID ?? 0,
                                 Username = accounts.Username,
-                                Password = accounts.Password, // Be cautious with password data
+                                Password = accounts.Password, 
                                 Email = accounts.Email,
                                 BooksOwned = booksOwnedGroup.Count(),
-                                Role = users.Role // Assigning the Role from the Users table
+                                Role = users.Role 
                             };
 
+                var userID = findUserID(LibrarianWindow.username);
                 foreach (var account in query)
                 {
-                    if (account.UserID != StudentWindow.LIBRARY_ID)
+                    if ((account.UserID != StudentWindow.LIBRARY_ID) && (userID != account.UserID))
                         accountsList.Add(account);
                 }
             }
 
             Accounts = new ObservableCollection<AccountsModel>(accountsList);
         }
-        // ... additional functions as needed
+
     }
 }
