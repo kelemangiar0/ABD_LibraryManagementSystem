@@ -27,7 +27,7 @@ namespace LibraryManagementSystem.View
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
@@ -42,7 +42,7 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var result = (from users in context.Users
                               join accounts in context.Accounts on users.UserID equals accounts.UserID
@@ -166,13 +166,13 @@ namespace LibraryManagementSystem.View
             
                 int userID = findUserID(StudentWindow.username) ?? 0;
 
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                     try
                     {
                         var userToUpdate = context.Users.Single(u => u.UserID == userID);
                         userToUpdate.ProfilePicture = ProfilePictureSource;
-                        context.SubmitChanges();
+                        context.SaveChanges();
                         setDetailsOverview();
                     }
                     catch (Exception ex)
@@ -188,13 +188,13 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
                     var userToUpdate = context.Users.Single(u => u.UserID == userID);
                     userToUpdate.Name = newName;
-                    context.SubmitChanges();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -207,13 +207,13 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
                     var userToUpdate = context.Users.Single(u => u.UserID == userID);
                     userToUpdate.Age = NewAge;
-                    context.SubmitChanges();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -226,13 +226,13 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
                     var userToUpdate = context.Accounts.Single(a => a.UserID == userID);
                     userToUpdate.Email = NewEmail;
-                    context.SubmitChanges();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -245,13 +245,13 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
                     var userToUpdate = context.Accounts.Single(a => a.UserID == userID);
                     userToUpdate.Password = AESCrypt.EncryptString(RegisterView.key,password);
-                    context.SubmitChanges();
+                    context.SaveChanges();
                 }
                 catch (Exception ex)
                 {

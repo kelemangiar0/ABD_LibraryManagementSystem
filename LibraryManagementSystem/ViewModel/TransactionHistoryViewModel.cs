@@ -30,7 +30,7 @@ namespace LibraryManagementSystem.ViewModel
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
@@ -42,7 +42,7 @@ namespace LibraryManagementSystem.ViewModel
 
         string findUsername(int id)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             join users in context.Users on accounts.UserID equals users.UserID
@@ -56,7 +56,7 @@ namespace LibraryManagementSystem.ViewModel
 
             List<TransactionsModel> transactionModels = new List<TransactionsModel>();
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 
                 int userID = findUserID(StudentWindow.username) ?? 0;

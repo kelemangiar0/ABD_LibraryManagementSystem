@@ -17,7 +17,7 @@ namespace LibraryManagementSystem.View
 
         private bool PassedLogin(string username, string password, int userID)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
@@ -51,7 +51,7 @@ namespace LibraryManagementSystem.View
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
@@ -62,7 +62,7 @@ namespace LibraryManagementSystem.View
         int verifyAccountType(int id) // 0 - user, 1 - librarian
 
         { 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from users in context.Users
                             where users.UserID == id
@@ -83,7 +83,7 @@ namespace LibraryManagementSystem.View
             string password = loginPassword.Password;
             int id = findUserID(username) ?? 0;
             string role;
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                     var query = from users in context.Users
                                 where users.UserID == id

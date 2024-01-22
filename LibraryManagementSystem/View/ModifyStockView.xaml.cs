@@ -48,7 +48,7 @@ namespace LibraryManagementSystem.View
 
         private void addItemsToComboBox()
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
@@ -79,7 +79,7 @@ namespace LibraryManagementSystem.View
 
                 string bookID = selectedText.Substring(startIndex, endIndex - startIndex);
                 int integerCastID = int.Parse(bookID);
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                     var query = from books in context.Books
                                 where books.BookID == integerCastID
@@ -110,13 +110,13 @@ namespace LibraryManagementSystem.View
             string bookID = selectedText.Substring(startIndex, endIndex - startIndex);
             int integerCastID = int.Parse(bookID);
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var bookToUpdate = context.Books.SingleOrDefault(book => book.BookID == integerCastID);
                 if (bookToUpdate != null)
                 {
                     bookToUpdate.Stock = int.Parse(writeStock.Text);
-                    context.SubmitChanges();
+                    context.SaveChanges();
                 }
             }
 

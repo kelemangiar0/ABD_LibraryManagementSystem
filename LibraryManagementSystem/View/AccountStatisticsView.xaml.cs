@@ -27,7 +27,7 @@ namespace LibraryManagementSystem.View
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
@@ -43,7 +43,7 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 int totalBorrowed = context.Transactions.Count(t => t.UserID_to == userID);
                 totalLabel.Content += $" {totalBorrowed}";
@@ -54,7 +54,7 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 int currentBorrowed = context.BooksOwneds.Count(t => t.UserID == userID);
                 currentLabel.Content += $" {currentBorrowed}";
@@ -66,7 +66,7 @@ namespace LibraryManagementSystem.View
         void showFirstAndLastDate()
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from users in context.Users
                             where users.UserID == userID

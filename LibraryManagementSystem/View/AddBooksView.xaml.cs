@@ -53,7 +53,7 @@ namespace LibraryManagementSystem.View
                     throw new Exception();
                 }
 
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                     var newBook = new Book
                     {
@@ -65,8 +65,8 @@ namespace LibraryManagementSystem.View
                         Stock = int.Parse(stock.Text)
                     };
 
-                    context.Books.InsertOnSubmit(newBook);
-                    context.SubmitChanges();
+                    context.Books.Add(newBook);
+                    context.SaveChanges();
                     LoadData();
                     MessageBox.Show($"Book named {newBook.Name} added succesfully!");
                     

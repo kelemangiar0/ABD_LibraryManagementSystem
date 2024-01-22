@@ -44,7 +44,7 @@ namespace LibraryManagementSystem.View
                 int userIDtoDelete = selectedAccount.UserID;
                 string username = selectedAccount.Username;
 
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                         try
                         {              
@@ -54,10 +54,10 @@ namespace LibraryManagementSystem.View
                              .FirstOrDefault();
                         if (accountToDelete != null)
                         {
-                            context.Accounts.DeleteOnSubmit(accountToDelete);
-                            context.SubmitChanges();
+                            context.Accounts.Remove(accountToDelete);
+                            context.SaveChanges();
                         }
-                        context.SubmitChanges();
+                        context.SaveChanges();
                             
                             MessageBox.Show($"The user {username} was deleted succesfully!");
                         }
@@ -84,7 +84,7 @@ namespace LibraryManagementSystem.View
             if (dataGrid.SelectedItem != null && dataGrid.SelectedItem is AccountsModel selectedAccount)
             {
                 int userID = selectedAccount.UserID;
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                     try
                     {
@@ -96,7 +96,7 @@ namespace LibraryManagementSystem.View
                         var booksOwnedToDelete = context.BooksOwneds
                             .Where(bo => bo.UserID == userID)
                             .ToList();
-                        context.BooksOwneds.DeleteAllOnSubmit(booksOwnedToDelete);
+                        context.BooksOwneds.RemoveRange(booksOwnedToDelete);
 
                         foreach (var bookID in getBookIDs)
                         {
@@ -107,7 +107,7 @@ namespace LibraryManagementSystem.View
                             }
                         }
 
-                        context.SubmitChanges();
+                        context.SaveChanges();
                         MessageBox.Show("Books returned succesfully!");
                         RefreshData();
                     }
@@ -125,7 +125,7 @@ namespace LibraryManagementSystem.View
                 try
                 {
                     int userID = selectedAccount.UserID;
-                    using (var context = new UncensoredLibraryDataContext())
+                    using (var context = new UncensoredLibraryEntities())
                     {
                         var query = context.Users.SingleOrDefault(b => b.UserID == userID);
 
@@ -139,7 +139,7 @@ namespace LibraryManagementSystem.View
                             {
                                 query.Role = "User";
                             }
-                            context.SubmitChanges();
+                            context.SaveChanges();
                         }
                         RefreshData();
                     }

@@ -30,7 +30,7 @@ namespace LibraryManagementSystem.ViewModel
         public void Refresh()
         {
             List<AvailableBooksModel> localBooks = new List<AvailableBooksModel>();
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from book in context.Books
                             where book.Stock != 0

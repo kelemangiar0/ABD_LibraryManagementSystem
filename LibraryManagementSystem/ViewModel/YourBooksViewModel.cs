@@ -28,7 +28,7 @@ namespace LibraryManagementSystem.ViewModel
         {
             List<YourBooksModel> booksOwnedModels = new List<YourBooksModel>();
             int userID = findUserID(StudentWindow.username) ?? 0;
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from booksOwned in context.BooksOwneds
                             where booksOwned.UserID == userID
@@ -52,7 +52,7 @@ namespace LibraryManagementSystem.ViewModel
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username

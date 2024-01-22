@@ -29,7 +29,7 @@ namespace LibraryManagementSystem.View
 
         private void showNumberBooksLibrary()
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 int? numberOfBooks = context.Books.Count(b => b.Stock > 0);
                 this.totalLabel.Content = $"Number of Books in Library: {numberOfBooks}";
@@ -37,7 +37,7 @@ namespace LibraryManagementSystem.View
         }
         private void showBooksCurrentlyBorrowed()
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 int? currentlyBorrowed = context.Transactions
                     .Count(t => t.Date_transaction <= DateTime.Now && t.Date_penalty >= DateTime.Now);
@@ -47,7 +47,7 @@ namespace LibraryManagementSystem.View
 
         private void showBooksAllTime()
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 int? allTimeBorrowed = context.Transactions.Count();
                 this.firstLabel.Content = $"Number of Books Borrowed All-Time: {allTimeBorrowed}";
@@ -55,7 +55,7 @@ namespace LibraryManagementSystem.View
         }
         private void showUniqueAuthors()
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 int? uniqueAuthors = context.Books.Select(b => b.Author).Distinct().Count();
                 this.lastLabel.Content = $"Number of Unique Authors Library: {uniqueAuthors}";

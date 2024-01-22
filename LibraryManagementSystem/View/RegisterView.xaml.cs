@@ -23,19 +23,19 @@ namespace LibraryManagementSystem.View
             InitializeComponent();
         }
         public static string key = "b14ca5898a4e4133bbce2ea2315a1916";
-        private bool TestUserExistence(string username, string email, UncensoredLibraryDataContext dbContext)
+        private bool TestUserExistence(string username, string email, UncensoredLibraryEntities dbContext)
         {
             return dbContext.Accounts.Any(u => u.Username == username || u.Email == email);
         }
 
-        private void InsertUserAndAccount(string username, string password, string email, UncensoredLibraryDataContext dbContext)
+        private void InsertUserAndAccount(string username, string password, string email, UncensoredLibraryEntities dbContext)
         {
             string userRole = "User";
             
             var newUser = new User { Role = userRole };
             
-            dbContext.Users.InsertOnSubmit(newUser);
-            dbContext.SubmitChanges();
+            dbContext.Users.Add(newUser);
+            dbContext.SaveChanges();
 
 
             
@@ -49,8 +49,8 @@ namespace LibraryManagementSystem.View
                 Email = email
             };
             
-            dbContext.Accounts.InsertOnSubmit(newAccount);
-            dbContext.SubmitChanges();
+            dbContext.Accounts.Add(newAccount);
+            dbContext.SaveChanges();
 
             MessageBox.Show($"User added succesfully! Username: {username}");
         }
@@ -68,7 +68,7 @@ namespace LibraryManagementSystem.View
             }
             else
             {
-                using (var dbContext = new UncensoredLibraryDataContext())
+                using (var dbContext = new UncensoredLibraryEntities())
                 {
                     try
                     {

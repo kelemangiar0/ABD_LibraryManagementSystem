@@ -39,7 +39,7 @@ namespace LibraryManagementSystem.View
 
         private void addItemsToComboBox()
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 try
                 {
@@ -65,7 +65,7 @@ namespace LibraryManagementSystem.View
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
@@ -93,7 +93,7 @@ namespace LibraryManagementSystem.View
             int selectedBookID = ((YourBooksModel)dataGrid.SelectedItem).BookID;
             int ID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var returnTransaction = new Transaction
                 {
@@ -104,12 +104,12 @@ namespace LibraryManagementSystem.View
                     Date_penalty = null
                 };
 
-                context.Transactions.InsertOnSubmit(returnTransaction);
-                context.SubmitChanges();
+                context.Transactions.Add(returnTransaction);
+                context.SaveChanges();
 
                 var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
                 bookToUpdate.Stock += 1;
-                context.SubmitChanges();
+                context.SaveChanges();
 
                 var returnedBook = context.BooksOwneds
                         .Where(b => b.UserID == ID && b.BookID == selectedBookID)
@@ -117,8 +117,8 @@ namespace LibraryManagementSystem.View
 
                 if (returnedBook != null)
                 {
-                    context.BooksOwneds.DeleteOnSubmit(returnedBook);
-                    context.SubmitChanges();
+                    context.BooksOwneds.Remove(returnedBook);
+                    context.SaveChanges();
                 }
 
                 MessageBox.Show("Book returned successfully.");
@@ -161,7 +161,7 @@ namespace LibraryManagementSystem.View
                 return;
             }
 
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                     var lastTransaction = context.Transactions
                                         .Where(t => t.BookID == bookID)
@@ -178,8 +178,8 @@ namespace LibraryManagementSystem.View
                         Date_transaction = DateTime.Now,
                         Date_penalty = datePenalty
                     };
-                    context.Transactions.InsertOnSubmit(newTransaction);
-                    context.SubmitChanges();
+                    context.Transactions.Add(newTransaction);
+                    context.SaveChanges();
 
                     var newBooksOwned = new BooksOwned
                     {
@@ -187,16 +187,16 @@ namespace LibraryManagementSystem.View
                         TransactionID = newTransaction.TransactionID,
                         BookID = bookID
                     };
-                    context.BooksOwneds.InsertOnSubmit(newBooksOwned);
-                    context.SubmitChanges();
+                    context.BooksOwneds.Add(newBooksOwned);
+                    context.SaveChanges();
 
                     var oldBooksOwned = context.BooksOwneds
                                         .Where(bo => bo.UserID == idFrom && bo.BookID == bookID)
                                         .FirstOrDefault();
                     if (oldBooksOwned != null)
                     {
-                        context.BooksOwneds.DeleteOnSubmit(oldBooksOwned);
-                        context.SubmitChanges();
+                        context.BooksOwneds.Remove(oldBooksOwned);
+                        context.SaveChanges();
                     }
                 }
 
@@ -216,7 +216,7 @@ namespace LibraryManagementSystem.View
 
         private int getAge(int userID)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var ageQuery = from users in context.Users
                                where users.UserID == userID
@@ -228,7 +228,7 @@ namespace LibraryManagementSystem.View
 
         private int getMinAge(int bookID)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var minAgeQuery = from books in context.Books
                                   where books.BookID == bookID

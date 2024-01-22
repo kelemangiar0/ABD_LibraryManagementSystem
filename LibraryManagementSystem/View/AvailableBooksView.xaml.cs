@@ -51,7 +51,7 @@ namespace LibraryManagementSystem.View
         {
             int userID = findUserID(StudentWindow.username) ?? 0;
 
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var ageQuery = from users in context.Users
                                where users.UserID == userID
@@ -101,7 +101,7 @@ namespace LibraryManagementSystem.View
 
         int? findUserID(string username)
         {
-            using (var context = new UncensoredLibraryDataContext())
+            using (var context = new UncensoredLibraryEntities())
             {
                 var query = from accounts in context.Accounts
                             where accounts.Username == username
@@ -122,7 +122,7 @@ namespace LibraryManagementSystem.View
 
             if (selectedDate > currentDate)
             {
-                using (var context = new UncensoredLibraryDataContext())
+                using (var context = new UncensoredLibraryEntities())
                 {
                     var newTransaction = new Transaction
                     {
@@ -133,12 +133,12 @@ namespace LibraryManagementSystem.View
                         Date_penalty = selectedDate
                     };
 
-                    context.Transactions.InsertOnSubmit(newTransaction);
-                    context.SubmitChanges();
+                    context.Transactions.Add(newTransaction);
+                    context.SaveChanges();
 
                     var bookToUpdate = context.Books.Single(b => b.BookID == selectedBookID);
                     bookToUpdate.Stock -= 1;
-                    context.SubmitChanges();
+                    context.SaveChanges();
 
                     var newBooksOwned = new BooksOwned
                     {
@@ -147,8 +147,8 @@ namespace LibraryManagementSystem.View
                         BookID = selectedBookID
                     };
 
-                    context.BooksOwneds.InsertOnSubmit(newBooksOwned);
-                    context.SubmitChanges();
+                    context.BooksOwneds.Add(newBooksOwned);
+                    context.SaveChanges();
                 }
 
                 (DataContext as AvailableBooksViewModel)?.Refresh();
